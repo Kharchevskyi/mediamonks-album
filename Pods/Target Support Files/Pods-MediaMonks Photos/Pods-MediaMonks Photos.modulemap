@@ -1,0 +1,6 @@
+framework module Pods_MediaMonks_Photos {
+  umbrella header "Pods-MediaMonks Photos-umbrella.h"
+
+  export *
+  module * { export * }
+}

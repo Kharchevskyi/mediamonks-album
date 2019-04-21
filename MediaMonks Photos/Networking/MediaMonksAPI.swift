@@ -12,6 +12,7 @@ import Result
 
 protocol MediaMonksAPIType {
     func albums(request: AlbumsRequest) -> SignalProducer<[MediaMonksAlbum], APIError>
+    func photos(request: PhotoRequest) -> SignalProducer<[MediaMonksPhoto], APIError>
 }
 
 final class MediaMonksAPI: MediaMonksAPIType {
