@@ -12,7 +12,20 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
+        MediaMonksAPI.default.albums(request: AlbumsRequest.default).on(
+            failed: { _ in },
+            value: { _ in })
+            .start()
+
+
+        MediaMonksAPI.default.photos(request: PhotoRequest(albumId: 1)).on(
+            failed: { _ in },
+            value: { _ in })
+            .start()
+
     }
 }
+
+
 

@@ -11,6 +11,12 @@
 		9FD52E93226CF83000EEBA73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52E92226CF83000EEBA73 /* ViewController.swift */; };
 		9FD52E98226CF83200EEBA73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E97226CF83200EEBA73 /* Assets.xcassets */; };
 		9FD52E9B226CF83200EEBA73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E99226CF83200EEBA73 /* LaunchScreen.storyboard */; };
+		9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EAD226D050B00EEBA73 /* ApiError.swift */; };
+		9FD52EB0226D051900EEBA73 /* MediaMonksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EAF226D051900EEBA73 /* MediaMonksAPI.swift */; };
+		9FD52EB2226D17C400EEBA73 /* FailableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EB1226D17C400EEBA73 /* FailableDecodable.swift */; };
+		9FD52EB4226D17E300EEBA73 /* MediaMonksAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EB3226D17E300EEBA73 /* MediaMonksAlbum.swift */; };
+		9FD52EB6226D17FF00EEBA73 /* MediaMonksApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EB5226D17FF00EEBA73 /* MediaMonksApiRequest.swift */; };
+		9FD52EB8226D198A00EEBA73 /* MediaMonksPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EB7226D198A00EEBA73 /* MediaMonksPhoto.swift */; };
 		F18801CE7DF49E4C40BA2BCE /* Pods_MediaMonks_Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +28,12 @@
 		9FD52E97226CF83200EEBA73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FD52E9A226CF83200EEBA73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FD52E9C226CF83200EEBA73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FD52EAD226D050B00EEBA73 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		9FD52EAF226D051900EEBA73 /* MediaMonksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksAPI.swift; sourceTree = "<group>"; };
+		9FD52EB1226D17C400EEBA73 /* FailableDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailableDecodable.swift; sourceTree = "<group>"; };
+		9FD52EB3226D17E300EEBA73 /* MediaMonksAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksAlbum.swift; sourceTree = "<group>"; };
+		9FD52EB5226D17FF00EEBA73 /* MediaMonksApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksApiRequest.swift; sourceTree = "<group>"; };
+		9FD52EB7226D198A00EEBA73 /* MediaMonksPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksPhoto.swift; sourceTree = "<group>"; };
 		B61D64EB0582EAF4C8BFAC11 /* Pods-MediaMonks Photos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaMonks Photos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MediaMonks Photos/Pods-MediaMonks Photos.debug.xcconfig"; sourceTree = "<group>"; };
 		F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaMonks_Photos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -60,6 +72,9 @@
 			isa = PBXGroup;
 			children = (
 				9FD52E92226CF83000EEBA73 /* ViewController.swift */,
+				9FD52EB9226D1B6600EEBA73 /* Models */,
+				9FD52EBB226D1B7F00EEBA73 /* Networking */,
+				9FD52EBA226D1B7400EEBA73 /* Extensions */,
 				9FD52EA2226CFC8000EEBA73 /* Supporting Files */,
 			);
 			path = "MediaMonks Photos";
@@ -74,6 +89,33 @@
 				9FD52E9C226CF83200EEBA73 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FD52EB9226D1B6600EEBA73 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9FD52EB3226D17E300EEBA73 /* MediaMonksAlbum.swift */,
+				9FD52EB7226D198A00EEBA73 /* MediaMonksPhoto.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9FD52EBA226D1B7400EEBA73 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9FD52EB1226D17C400EEBA73 /* FailableDecodable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9FD52EBB226D1B7F00EEBA73 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9FD52EAF226D051900EEBA73 /* MediaMonksAPI.swift */,
+				9FD52EB5226D17FF00EEBA73 /* MediaMonksApiRequest.swift */,
+				9FD52EAD226D050B00EEBA73 /* ApiError.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		A54E7B90FB90B494475586A5 /* Frameworks */ = {
@@ -216,8 +258,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD52EB0226D051900EEBA73 /* MediaMonksAPI.swift in Sources */,
+				9FD52EB4226D17E300EEBA73 /* MediaMonksAlbum.swift in Sources */,
+				9FD52EB8226D198A00EEBA73 /* MediaMonksPhoto.swift in Sources */,
 				9FD52E93226CF83000EEBA73 /* ViewController.swift in Sources */,
 				9FD52E91226CF83000EEBA73 /* AppDelegate.swift in Sources */,
+				9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */,
+				9FD52EB2226D17C400EEBA73 /* FailableDecodable.swift in Sources */,
+				9FD52EB6226D17FF00EEBA73 /* MediaMonksApiRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
