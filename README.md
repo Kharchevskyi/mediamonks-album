@@ -1,6 +1,6 @@
 ## MediaMonks Albums
 
-**MediaMonks test project**
+MediaMonks test project.   
 Album list using https://jsonplaceholder.typicode.com. 
 
 ## Installation
