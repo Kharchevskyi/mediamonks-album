@@ -12,10 +12,10 @@ enum ApiEndpoint {
     case albums
     case photos(_ albumId: Int)
 
-    var urlString: String {
+    var path: String {
         switch self {
-        case .albums: return "albums"
-        case .photos(let albumId): return "albums/\(albumId)/photos"
+        case .albums: return "/albums"
+        case .photos(let albumId): return "/albums/\(albumId)/photos"
         }
     }
 }
@@ -25,21 +25,13 @@ protocol MediaMonksApiRequest {
 }
 
 struct AlbumsRequest: MediaMonksApiRequest {
-    let path: ApiEndpoint
-
-    init(path: ApiEndpoint) {
-        self.path = path
-    }
+    let path: ApiEndpoint = .albums
 }
 
 struct PhotoRequest: MediaMonksApiRequest {
     let path: ApiEndpoint
 
-    init(path: ApiEndpoint) {
-        self.path = path
-    }
-
     init(albumId: Int) {
-        self.init(path: .photos(albumId))
+        path = .photos(albumId)
     }
 } 

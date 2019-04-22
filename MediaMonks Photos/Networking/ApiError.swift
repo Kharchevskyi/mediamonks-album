@@ -13,6 +13,15 @@ enum APIError: Error {
     case dataMapping
     // any error occurred during the request sending
     case request(Error)
-    case internalStatusCode(Int, String?)
     case malformedBaseURL
+}
+
+extension APIError {
+    func userDescription() -> String? {
+        switch self {
+        case .dataMapping: return "Oooops, something went wrong."
+        case .request: return "Oooops, we've got server problems."
+        case .malformedBaseURL: print("Warning, check networking"); return nil
+        }
+    }
 }

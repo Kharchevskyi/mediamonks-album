@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9FD52E91226CF83000EEBA73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52E90226CF83000EEBA73 /* AppDelegate.swift */; };
-		9FD52E93226CF83000EEBA73 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52E92226CF83000EEBA73 /* ViewController.swift */; };
 		9FD52E98226CF83200EEBA73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E97226CF83200EEBA73 /* Assets.xcassets */; };
 		9FD52E9B226CF83200EEBA73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E99226CF83200EEBA73 /* LaunchScreen.storyboard */; };
 		9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EAD226D050B00EEBA73 /* ApiError.swift */; };
@@ -17,6 +16,14 @@
 		9FD52EB4226D17E300EEBA73 /* MediaMonksAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EB3226D17E300EEBA73 /* MediaMonksAlbum.swift */; };
 		9FD52EB6226D17FF00EEBA73 /* MediaMonksApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EB5226D17FF00EEBA73 /* MediaMonksApiRequest.swift */; };
 		9FD52EB8226D198A00EEBA73 /* MediaMonksPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EB7226D198A00EEBA73 /* MediaMonksPhoto.swift */; };
+		9FD52EC4226DDA6500EEBA73 /* AlbumsListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EBE226DDA6500EEBA73 /* AlbumsListConfigurator.swift */; };
+		9FD52EC5226DDA6500EEBA73 /* AlbumsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EBF226DDA6500EEBA73 /* AlbumsListViewController.swift */; };
+		9FD52EC7226DDA6500EEBA73 /* AlbumsListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EC1226DDA6500EEBA73 /* AlbumsListInteractor.swift */; };
+		9FD52EC8226DDA6500EEBA73 /* AlbumsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EC2226DDA6500EEBA73 /* AlbumsListPresenter.swift */; };
+		9FD52EC9226DDA6500EEBA73 /* AlbumsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52EC3226DDA6500EEBA73 /* AlbumsListRouter.swift */; };
+		9FD52ECC226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ECB226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift */; };
+		9FD52ECF226E0E9400EEBA73 /* CustomRefreshControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */; };
+		9FD52ED1226E13BD00EEBA73 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ED0226E13BD00EEBA73 /* Extensions.swift */; };
 		F18801CE7DF49E4C40BA2BCE /* Pods_MediaMonks_Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +31,6 @@
 		56DE9E390E7CE8D6E77E4809 /* Pods-MediaMonks Photos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaMonks Photos.release.xcconfig"; path = "Pods/Target Support Files/Pods-MediaMonks Photos/Pods-MediaMonks Photos.release.xcconfig"; sourceTree = "<group>"; };
 		9FD52E8D226CF83000EEBA73 /* MediaMonks Photos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MediaMonks Photos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD52E90226CF83000EEBA73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9FD52E92226CF83000EEBA73 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9FD52E97226CF83200EEBA73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FD52E9A226CF83200EEBA73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FD52E9C226CF83200EEBA73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,6 +40,14 @@
 		9FD52EB3226D17E300EEBA73 /* MediaMonksAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksAlbum.swift; sourceTree = "<group>"; };
 		9FD52EB5226D17FF00EEBA73 /* MediaMonksApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksApiRequest.swift; sourceTree = "<group>"; };
 		9FD52EB7226D198A00EEBA73 /* MediaMonksPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksPhoto.swift; sourceTree = "<group>"; };
+		9FD52EBE226DDA6500EEBA73 /* AlbumsListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListConfigurator.swift; sourceTree = "<group>"; };
+		9FD52EBF226DDA6500EEBA73 /* AlbumsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListViewController.swift; sourceTree = "<group>"; };
+		9FD52EC1226DDA6500EEBA73 /* AlbumsListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListInteractor.swift; sourceTree = "<group>"; };
+		9FD52EC2226DDA6500EEBA73 /* AlbumsListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListPresenter.swift; sourceTree = "<group>"; };
+		9FD52EC3226DDA6500EEBA73 /* AlbumsListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsListRouter.swift; sourceTree = "<group>"; };
+		9FD52ECB226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaMonksAlbumViewModel.swift; sourceTree = "<group>"; };
+		9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControlView.swift; sourceTree = "<group>"; };
+		9FD52ED0226E13BD00EEBA73 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B61D64EB0582EAF4C8BFAC11 /* Pods-MediaMonks Photos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaMonks Photos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MediaMonks Photos/Pods-MediaMonks Photos.debug.xcconfig"; sourceTree = "<group>"; };
 		F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaMonks_Photos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -71,7 +85,7 @@
 		9FD52E8F226CF83000EEBA73 /* MediaMonks Photos */ = {
 			isa = PBXGroup;
 			children = (
-				9FD52E92226CF83000EEBA73 /* ViewController.swift */,
+				9FD52ECA226DDA6A00EEBA73 /* Albums Lists Scene */,
 				9FD52EB9226D1B6600EEBA73 /* Models */,
 				9FD52EBB226D1B7F00EEBA73 /* Networking */,
 				9FD52EBA226D1B7400EEBA73 /* Extensions */,
@@ -104,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				9FD52EB1226D17C400EEBA73 /* FailableDecodable.swift */,
+				9FD52ED0226E13BD00EEBA73 /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -116,6 +131,28 @@
 				9FD52EAD226D050B00EEBA73 /* ApiError.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		9FD52ECA226DDA6A00EEBA73 /* Albums Lists Scene */ = {
+			isa = PBXGroup;
+			children = (
+				9FD52EBE226DDA6500EEBA73 /* AlbumsListConfigurator.swift */,
+				9FD52EBF226DDA6500EEBA73 /* AlbumsListViewController.swift */,
+				9FD52EC1226DDA6500EEBA73 /* AlbumsListInteractor.swift */,
+				9FD52EC2226DDA6500EEBA73 /* AlbumsListPresenter.swift */,
+				9FD52EC3226DDA6500EEBA73 /* AlbumsListRouter.swift */,
+				9FD52ECD226E049100EEBA73 /* Models */,
+				9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */,
+			);
+			path = "Albums Lists Scene";
+			sourceTree = "<group>";
+		};
+		9FD52ECD226E049100EEBA73 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9FD52ECB226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A54E7B90FB90B494475586A5 /* Frameworks */ = {
@@ -258,13 +295,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD52EC8226DDA6500EEBA73 /* AlbumsListPresenter.swift in Sources */,
+				9FD52EC9226DDA6500EEBA73 /* AlbumsListRouter.swift in Sources */,
 				9FD52EB0226D051900EEBA73 /* MediaMonksAPI.swift in Sources */,
 				9FD52EB4226D17E300EEBA73 /* MediaMonksAlbum.swift in Sources */,
 				9FD52EB8226D198A00EEBA73 /* MediaMonksPhoto.swift in Sources */,
-				9FD52E93226CF83000EEBA73 /* ViewController.swift in Sources */,
+				9FD52EC5226DDA6500EEBA73 /* AlbumsListViewController.swift in Sources */,
+				9FD52EC7226DDA6500EEBA73 /* AlbumsListInteractor.swift in Sources */,
+				9FD52ECF226E0E9400EEBA73 /* CustomRefreshControlView.swift in Sources */,
 				9FD52E91226CF83000EEBA73 /* AppDelegate.swift in Sources */,
+				9FD52ECC226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift in Sources */,
+				9FD52ED1226E13BD00EEBA73 /* Extensions.swift in Sources */,
 				9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */,
 				9FD52EB2226D17C400EEBA73 /* FailableDecodable.swift in Sources */,
+				9FD52EC4226DDA6500EEBA73 /* AlbumsListConfigurator.swift in Sources */,
 				9FD52EB6226D17FF00EEBA73 /* MediaMonksApiRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
