@@ -20,6 +20,10 @@ final class MediaMonksAPI: MediaMonksAPIType {
 
     private let session: URLSession
     private let baseURL: URL
+    private let scheduler = QueueScheduler(
+        qos: .background,
+        name: "com.MediaMonks.MediaMonksAPI.queue"
+    )
 
     init(baseURL: URL, session: URLSession = .shared) {
         self.session = session
@@ -65,6 +69,7 @@ final class MediaMonksAPI: MediaMonksAPIType {
 
         return session.reactive
             .data(with: URLRequest(url: url))
+            .observe(on: scheduler)
             .mapError { APIError.request($0) }
             .map { $0.0 }
     }

@@ -64,6 +64,40 @@ final class CustomRefreshControlView: UIView {
         return returnColor
     }
 
+    private func animateNextStep() {
+        UIView.animate(
+            withDuration: 0.35,
+            delay: 0.0,
+            options: .curveLinear,
+            animations: {
+                self.labels.forEach {
+                    $0.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+                }
+        }, completion: { _ in
+            UIView.animate(
+                withDuration: 0.25,
+                delay: 0.0,
+                options: .curveLinear,
+                animations: { () -> Void in
+                    self.labels.forEach {
+                        $0.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                    }
+            }, completion: { _ in
+                if self.refreshControl?.isRefreshing ?? false {
+                    self.currentLabelIndex = 0
+                    self.animate()
+                } else {
+                    self.isAnimating = false
+                    self.currentLabelIndex = 0
+                    self.labels.forEach {
+                        $0.textColor = self.textColor
+                        $0.transform = .identity
+                    }
+                }
+            })
+        })
+    }
+
     func animate() {
         isAnimating = true
 
@@ -97,37 +131,12 @@ final class CustomRefreshControlView: UIView {
                 })
     }
 
-    private func animateNextStep() {
-        UIView.animate(
-            withDuration: 0.35,
-            delay: 0.0,
-            options: .curveLinear,
-            animations: {
-                self.labels.forEach {
-                    $0.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
-                }
-            }, completion: { _ in
-                UIView.animate(
-                    withDuration: 0.25,
-                    delay: 0.0,
-                    options: .curveLinear,
-                    animations: { () -> Void in
-                        self.labels.forEach {
-                            $0.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-                        }
-                    }, completion: { _ in
-                        if self.refreshControl?.isRefreshing ?? false {
-                            self.currentLabelIndex = 0
-                            self.animate()
-                        } else {
-                            self.isAnimating = false
-                            self.currentLabelIndex = 0
-                            self.labels.forEach {
-                                $0.textColor = self.textColor
-                                $0.transform = .identity
-                            }
-                        }
-                    })
-        })
+    func stopAnimating() {
+        isAnimating = false
+        labels.forEach {
+            $0.textColor = self.textColor
+            $0.transform = .identity
+        }
     }
+
 }

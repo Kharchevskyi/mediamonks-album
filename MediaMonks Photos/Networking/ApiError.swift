@@ -17,11 +17,13 @@ enum APIError: Error {
 }
 
 extension APIError {
-    func userDescription() -> String? {
+    var userDescription: String {
         switch self {
-        case .dataMapping: return "Oooops, something went wrong."
-        case .request: return "Oooops, we've got server problems."
-        case .malformedBaseURL: print("Warning, check networking"); return nil
+        case .dataMapping,
+             .malformedBaseURL:
+            return "Oooops, something went wrong."
+        case .request:
+            return "Oooops, we've got server problems."
         }
     }
 }

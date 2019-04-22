@@ -45,10 +45,10 @@ extension AlbumsListViewController.State {
         case .idle:
             self = .idle
         case .failed(let error):
-            if let message = error.userDescription() {
-                self = .failed(message)
-            } else {
-                return nil
+            switch error {
+            case .dataMapping:      self = .failed(.message(error.userDescription))
+            case .malformedBaseURL: self = .failed(.message(error.userDescription))
+            case .request:          self = .failed(.retryable(error.userDescription))
             }
         case .loading(.initial):
             self = .loading(.initial)

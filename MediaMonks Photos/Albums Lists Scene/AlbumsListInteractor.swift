@@ -42,9 +42,11 @@ final class AlbumsListInteractor {
     enum Action {
         case setup
         case dispose
+        case loadNew
     }
 
     private let output: AlbumsListInteractorOutput
+    private let scheduler = QueueScheduler(qos: .background, name: "com.MediaMonks.AlbumsListInteractor.queue")
     private let mediaMonksApi: MediaMonksAPIType
     private var albumsDisposable: Disposable?
     private var state: State = .idle {
@@ -64,9 +66,13 @@ final class AlbumsListInteractor {
 
 extension AlbumsListInteractor: AlbumsListInteractorInput {
     func handle(action: AlbumsListInteractor.Action) {
-        switch action {
-        case .setup: setup()
-        case .dispose: dispose()
+        scheduler.schedule { [weak self] in
+            guard let self = self else { return }
+            switch action {
+            case .setup:   self.setup()
+            case .dispose: self.dispose()
+            case .loadNew: self.getAlbums()
+            }
         }
     }
 

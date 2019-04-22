@@ -24,7 +24,7 @@ final class AlbumsListViewController: UIViewController {
     enum State: Equatable {
         case idle
         case loading(Loading)
-        case failed(String)
+        case failed(ErrorState)
         case loaded([MediaMonksAlbumViewModel])
 
         enum Loading {
@@ -38,6 +38,11 @@ final class AlbumsListViewController: UIViewController {
             default: return []
             }
         }
+
+        enum ErrorState: Equatable {
+            case retryable(String)
+            case message(String)
+        }
     }
 
     var output: AlbumsListViewControllerOutput?
@@ -48,7 +53,6 @@ final class AlbumsListViewController: UIViewController {
     }
 
     private let refreshControl: UIRefreshControl = UIRefreshControl()
-    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     private let collectionViewLayout = UICollectionViewFlowLayout()
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -78,19 +82,11 @@ final class AlbumsListViewController: UIViewController {
         output?.handle(action: .dispose)
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        activityIndicator.center = view.center
-    }
 }
 
 extension AlbumsListViewController {
     private func setupUI() {
         view.backgroundColor = .black
-
-        view.addSubview(activityIndicator)
-        activityIndicator.hidesWhenStopped = true
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -98,13 +94,27 @@ extension AlbumsListViewController {
         collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
         view.constrainToEdges(collectionView)
-        
 
         activityView.textColor = .white
         activityView.font = UIFont.boldSystemFont(ofSize: 16)
+
         refreshControl.addSubview(activityView)
         refreshControl.tintColor = .clear
         refreshControl.constrainToEdges(activityView, insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+        refreshControl.addTarget(self, action: #selector(reload), for: .valueChanged)
+        refreshControl.beginRefreshing()
+        activityView.animate()
+    }
+
+    private func endRefreshing() {
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+            self.activityView.stopAnimating()
+        }
+    }
+
+    @objc private func reload() {
+        output?.handle(action: .loadNew)
     }
 }
 
@@ -131,21 +141,44 @@ extension AlbumsListViewController: AlbumsListViewControllerInput {
         if newState != self.state { self.state = newState }
         DispatchQueue.main.async {
             switch newState {
-            case .idle: break
-            case .loading(.initial): self.updateForInitiallLoading()
-            case .loading(.new): print("TODO - refresh toggled")
-            case .failed(let error): print("TODO - error \(error)")
+            case .idle:
+                break
+            case .loading(.initial):
+                self.updateForLoadingState()
+            case .loading(.new):
+                self.updateForLoadingNewState()
+            case .failed(.retryable(let message)):
+                self.updateForRetryState(with: message)
+            case .failed(.message(let message)):
+                self.updateForErrorState(with: message)
             case .loaded:
-                self.activityIndicator.stopAnimating()
-                self.collectionView.reloadData()
+                self.updateForLoadedState()
+
             }
         } 
     }
 
-    private func updateForInitiallLoading() {
-        collectionView.reloadData()
-        activityIndicator.startAnimating()
+    private func updateForRetryState(with string: String) {
+
     }
+
+    private func updateForErrorState(with string: String) {
+
+    }
+
+    private func updateForLoadingState() {
+        collectionView.reloadData()
+    }
+
+    private func updateForLoadingNewState() {
+
+    }
+
+    private func updateForLoadedState() {
+        endRefreshing()
+        collectionView.reloadData()
+    }
+
 }
 
 
