@@ -57,7 +57,7 @@ final class MediaMonksAPI: MediaMonksAPIType {
             return SignalProducer(error: APIError.malformedBaseURL)
         }
 
-        components.path = "/\(request.path)"
+        components.path = request.path.urlString
 
         guard let url = components.url else {
             return SignalProducer(error: APIError.malformedBaseURL)

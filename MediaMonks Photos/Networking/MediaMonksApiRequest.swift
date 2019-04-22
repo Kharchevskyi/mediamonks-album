@@ -8,28 +8,38 @@
 
 import Foundation
 
+enum ApiEndpoint {
+    case albums
+    case photos(_ albumId: Int)
+
+    var urlString: String {
+        switch self {
+        case .albums: return "albums"
+        case .photos(let albumId): return "albums/\(albumId)/photos"
+        }
+    }
+}
+
 protocol MediaMonksApiRequest {
-    var path: String { get }
+    var path: ApiEndpoint { get }
 }
 
 struct AlbumsRequest: MediaMonksApiRequest {
-    static var `default`: AlbumsRequest = AlbumsRequest(path: "albums")
+    let path: ApiEndpoint
 
-    let path: String
-
-    init(path: String) {
+    init(path: ApiEndpoint) {
         self.path = path
     }
 }
 
 struct PhotoRequest: MediaMonksApiRequest {
-    let path: String
+    let path: ApiEndpoint
 
-    init(path: String) {
+    init(path: ApiEndpoint) {
         self.path = path
     }
 
     init(albumId: Int) {
-        self.init(path: "albums/\(albumId)/photos")
+        self.init(path: .photos(albumId))
     }
-}
+} 

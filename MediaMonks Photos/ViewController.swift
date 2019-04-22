@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        MediaMonksAPI.default.albums(request: AlbumsRequest.default).on(
+        MediaMonksAPI.default.albums(request: AlbumsRequest(path: .albums)).on(
             failed: { _ in },
             value: { _ in })
             .start()
