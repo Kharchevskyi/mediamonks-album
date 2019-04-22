@@ -27,20 +27,8 @@ final class MediaMonksAPI: MediaMonksAPIType {
     }
 
     func albums(request: AlbumsRequest) -> SignalProducer<[MediaMonksAlbum], APIError> {
-        guard var components = URLComponents(string: baseURL.absoluteString) else {
-            return SignalProducer(error: APIError.malformedBaseURL)
-        }
-
-        components.path = "/\(request.path)"
-
-        guard let url = components.url else {
-            return SignalProducer(error: APIError.malformedBaseURL)
-        }
-
-        return session.reactive
-            .data(with: URLRequest(url: url))
-            .mapError { APIError.request($0) }
-            .attemptMap { (data, _) -> Result<[MediaMonksAlbum], APIError> in
+        return getDataFor(request: request)
+            .attemptMap { data -> Result<[MediaMonksAlbum], APIError> in
                 let decoder = JSONDecoder()
                 do {
                     let albums = try decoder.decode(FailableDecodableArray<MediaMonksAlbum>.self, from: data).elements
@@ -52,6 +40,19 @@ final class MediaMonksAPI: MediaMonksAPIType {
     }
 
     func photos(request: PhotoRequest) -> SignalProducer<[MediaMonksPhoto], APIError> {
+        return getDataFor(request: request)
+            .attemptMap { data -> Result<[MediaMonksPhoto], APIError> in
+                let decoder = JSONDecoder()
+                do {
+                    let photos = try decoder.decode(FailableDecodableArray<MediaMonksPhoto>.self, from: data).elements
+                    return Result.success(photos)
+                } catch {
+                    return Result.failure(APIError.dataMapping)
+                }
+            }
+    }
+
+    private func getDataFor(request: MediaMonksApiRequest) -> SignalProducer<Data, APIError> {
         guard var components = URLComponents(string: baseURL.absoluteString) else {
             return SignalProducer(error: APIError.malformedBaseURL)
         }
@@ -65,14 +66,6 @@ final class MediaMonksAPI: MediaMonksAPIType {
         return session.reactive
             .data(with: URLRequest(url: url))
             .mapError { APIError.request($0) }
-            .attemptMap { (data, _) -> Result<[MediaMonksPhoto], APIError> in
-                let decoder = JSONDecoder()
-                do {
-                    let photos = try decoder.decode(FailableDecodableArray<MediaMonksPhoto>.self, from: data).elements
-                    return Result.success(photos)
-                } catch {
-                    return Result.failure(APIError.dataMapping)
-                }
-        }
+            .map { $0.0 }
     }
 }
