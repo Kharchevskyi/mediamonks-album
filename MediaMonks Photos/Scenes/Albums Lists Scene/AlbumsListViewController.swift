@@ -27,12 +27,7 @@ final class AlbumsListViewController: UIViewController {
     }
 
     var output: AlbumsListViewControllerOutput?
-    private var state: ViewState<MediaMonksAlbumViewModel> = .idle {
-        didSet {
-            print(state)
-        }
-    }
-
+    private var state: ViewState<MediaMonksAlbumViewModel> = .idle
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     private let collectionViewLayout = UICollectionViewFlowLayout()
     private lazy var collectionView = UICollectionView(
@@ -214,26 +209,5 @@ extension AlbumsListViewController {
     private func updateForRetryState(with message: String) {
         endRefreshing()
         collectionView.reloadData()
-    }
-}
-
-fileprivate extension ViewState where T == MediaMonksAlbumViewModel {
-    var cellsCount: Int {
-        switch self {
-        case .idle: return 0
-        case .loading(.initial): return 1
-        case .loading(.new): return 0
-        case .failed(.retryable): return 1 // provide a cell for retry state.
-        case .failed(.message): return 0
-        case .loaded(let items): return items.count // provide a cell for every album.
-        }
-
-    }
-
-    var items: [MediaMonksAlbumViewModel] {
-        switch self {
-        case .loaded(let items): return items
-        default: return []
-        }
     }
 }

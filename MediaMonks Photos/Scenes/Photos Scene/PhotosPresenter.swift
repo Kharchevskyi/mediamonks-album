@@ -15,7 +15,7 @@ protocol PhotosPresenterInput: class {
 }
 
 protocol PhotosPresenterOutput: class {
-
+    func handle(state: ViewState<MediaMonksPhotoViewModel>)
 }
 
 // MARK: - Implementation
@@ -31,5 +31,7 @@ final class PhotosPresenter {
 }
 
 extension PhotosPresenter: PhotosPresenterInput {
-
+    func handle(state: ViewState<MediaMonksPhotoViewModel>) {
+        
+    }
 }

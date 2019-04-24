@@ -24,3 +24,23 @@ enum ViewState<T: Equatable>: Equatable {
         case message(String)
     }
 }
+
+extension ViewState {
+    var cellsCount: Int {
+        switch self {
+        case .idle: return 0
+        case .loading(.initial):  return 1 // provide a cell for loading state
+        case .loading(.new):      return 0
+        case .failed(.retryable): return 1 // provide a cell for retry state.
+        case .failed(.message):   return 0
+        case .loaded(let items):  return items.count // provide a cell for every album.
+        }
+    }
+
+    var items: [T] {
+        switch self {
+        case .loaded(let items): return items
+        default: return []
+        }
+    }
+}

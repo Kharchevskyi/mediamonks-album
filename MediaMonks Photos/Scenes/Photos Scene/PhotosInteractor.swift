@@ -13,7 +13,7 @@ import ReactiveCocoa
 // MARK: - Protocols
 
 protocol PhotosInteractorInput {
-    func setup()
+    func handle(action: PhotosInteractor.Action)
 }
 
 protocol PhotosInteractorOutput {
@@ -23,6 +23,10 @@ protocol PhotosInteractorOutput {
 // MARK: - Implementation
 
 final class PhotosInteractor {
+    enum Action {
+        case setup, retry
+    }
+    
     private let output: PhotosInteractorOutput
     private let albumId: String
     private let scheduler = QueueScheduler(qos: .background, name: "com.MediaMonks.PhotosInteractor.queue")
@@ -36,8 +40,18 @@ final class PhotosInteractor {
 }
 
 extension PhotosInteractor: PhotosInteractorInput {
-    func setup() {
-        // perform any initial tasks here (i.e. data loading, passing existing data, etc.)
-        // and pass results to the output (i.e. `output.refreshUsers(with: users)`)
+    func handle(action: PhotosInteractor.Action) {
+        switch action {
+        case .setup: setup()
+        case .retry: retry()
+        }
+    }
+
+    private func setup() {
+
+    }
+
+    private func retry() {
+
     }
 }

@@ -80,7 +80,7 @@ extension AlbumsListInteractor {
             .producer
             .take(duringLifetimeOf: self).on(
                 started: { [weak self] in
-                    let loadinState: .State<MediaMonksAlbum>.Loading = isInitial
+                    let loadinState: State<MediaMonksAlbum>.Loading = isInitial
                         ? .initial
                         : .new
                     self?.state = .loading(loadinState)
