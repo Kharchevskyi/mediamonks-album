@@ -10,6 +10,7 @@
 		9F1A9AE72270729F004DD56D /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9AE62270729F004DD56D /* ViewState.swift */; };
 		9F1A9AE9227072CA004DD56D /* RetryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9AE8227072CA004DD56D /* RetryCollectionViewCell.swift */; };
 		9F1A9AED227074CE004DD56D /* TapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9AEC227074CE004DD56D /* TapticFeedback.swift */; };
+		9F1A9AF02270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9AEF2270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift */; };
 		9FD52E91226CF83000EEBA73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52E90226CF83000EEBA73 /* AppDelegate.swift */; };
 		9FD52E98226CF83200EEBA73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E97226CF83200EEBA73 /* Assets.xcassets */; };
 		9FD52E9B226CF83200EEBA73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E99226CF83200EEBA73 /* LaunchScreen.storyboard */; };
@@ -36,6 +37,7 @@
 		9F1A9AE62270729F004DD56D /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		9F1A9AE8227072CA004DD56D /* RetryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F1A9AEC227074CE004DD56D /* TapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapticFeedback.swift; sourceTree = "<group>"; };
+		9F1A9AEF2270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumLoadingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9FD52E8D226CF83000EEBA73 /* MediaMonks Photos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MediaMonks Photos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD52E90226CF83000EEBA73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FD52E97226CF83200EEBA73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			children = (
 				9FD52ED6226F679B00EEBA73 /* AlbumCell.swift */,
 				9F1A9AE8227072CA004DD56D /* RetryCollectionViewCell.swift */,
+				9F1A9AEF2270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */,
 				9F1A9AE72270729F004DD56D /* ViewState.swift in Sources */,
 				9FD52EB2226D17C400EEBA73 /* FailableDecodable.swift in Sources */,
+				9F1A9AF02270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift in Sources */,
 				9FD52EC4226DDA6500EEBA73 /* AlbumsListConfigurator.swift in Sources */,
 				9FD52EB6226D17FF00EEBA73 /* MediaMonksApiRequest.swift in Sources */,
 			);

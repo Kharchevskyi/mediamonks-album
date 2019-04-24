@@ -15,12 +15,20 @@ struct MediaMonksAlbumViewModel: Equatable {
 
 extension MediaMonksAlbumViewModel {
     init(_ album: MediaMonksAlbum) {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+
         let attributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14),
-            NSAttributedString.Key.foregroundColor: UIColor.white
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13),
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.paragraphStyle: paragraph
         ]
 
-        self.title = NSAttributedString(string: album.title, attributes: attributes)
+        self.title = NSAttributedString(
+            string: album.title.firstUppercased(),
+            attributes: attributes
+        )
         self.id = album.id
     }
 }
+

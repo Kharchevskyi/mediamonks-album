@@ -21,11 +21,15 @@ protocol AlbumsListViewControllerOutput {
 // MARK: - Implementation
 
 final class AlbumsListViewController: UIViewController {
+    enum LocalConstants {
+        static let insets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        static let minimumInteritemSpacing: CGFloat = 6
+    }
 
     var output: AlbumsListViewControllerOutput?
     private var state: ViewState<MediaMonksAlbumViewModel> = .idle {
         didSet {
-//            print(state)
+            print(state)
         }
     }
 
@@ -66,6 +70,8 @@ final class AlbumsListViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(cellType: AlbumCell.self)
         collectionView.register(cellType: RetryCollectionViewCell.self)
+        collectionView.register(cellType: AlbumLoadingCollectionViewCell.self)
+
         collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
         view.constrainToEdges(collectionView)
@@ -88,6 +94,9 @@ extension AlbumsListViewController: UICollectionViewDelegate, UICollectionViewDa
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch state {
+            case .loading(.initial):
+            return collectionView.dequeueReusableCell(ofType: AlbumLoadingCollectionViewCell.self, at: indexPath)
+                .setup(with: "Loading", subtitle: "🤞🤞🤞🤞🤞", onTap: nil)
         case .loaded(let items):
             guard let viewModel = items[safe: indexPath.row] else {
                 fatalError("no cell provided")
@@ -115,7 +124,29 @@ extension AlbumsListViewController: UICollectionViewDelegate, UICollectionViewDa
 extension AlbumsListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return collectionView.frame.size
+        switch state {
+        case .failed(.retryable),
+             .loading(.initial):
+            return collectionView.frame.size
+        case .loaded:
+            let width = collectionView.frame.size.width / 3 - LocalConstants.minimumInteritemSpacing * 2
+            return CGSize(
+                width: width,
+                height: width
+            )
+        default:
+            return .zero
+        }
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+
+        return LocalConstants.minimumInteritemSpacing
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return LocalConstants.insets
     }
 }
 
@@ -123,7 +154,7 @@ extension AlbumsListViewController: UICollectionViewDelegateFlowLayout {
 
 extension AlbumsListViewController: AlbumsListViewControllerInput {
     func handle(state newState: ViewState<MediaMonksAlbumViewModel>) {
-        self.state = .failed(.retryable("aaaa"))
+        self.state = newState
         DispatchQueue.main.async {
             switch newState {
             case .idle:
@@ -132,8 +163,9 @@ extension AlbumsListViewController: AlbumsListViewControllerInput {
                 self.updateForLoadingState()
             case .loading(.new):
                 self.updateForLoadingNewState()
-            case .failed(.retryable(let message)),
-                 .failed(.message(let message)):
+            case .failed(.retryable(let message)):
+                self.updateForRetryState(with: message)
+            case .failed(.message(let message)):
                 self.updateForErrorState(with: message)
             case .loaded:
                 self.updateForLoadedState()
@@ -170,18 +202,18 @@ extension AlbumsListViewController {
 // MARK: - Error State
 
 extension AlbumsListViewController {
-    private func updateForErrorState(with message: String?) {
+    private func updateForErrorState(with message: String) {
         endRefreshing()
-
-        if let message = message {
-            showError(with: message)
-        } else {
-            collectionView.reloadData()
-        }
+        showError(with: message)
     }
 
     private func showError(with message: String) {
         // TODO: Anton - Show notification
+    }
+
+    private func updateForRetryState(with message: String) {
+        endRefreshing()
+        collectionView.reloadData()
     }
 }
 
@@ -189,7 +221,7 @@ fileprivate extension ViewState where T == MediaMonksAlbumViewModel {
     var cellsCount: Int {
         switch self {
         case .idle: return 0
-        case .loading(.initial): return 0
+        case .loading(.initial): return 1
         case .loading(.new): return 0
         case .failed(.retryable): return 1 // provide a cell for retry state.
         case .failed(.message): return 0

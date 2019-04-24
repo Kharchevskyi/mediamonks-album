@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class RetryCollectionViewCell: UICollectionViewCell {
+class RetryCollectionViewCell: UICollectionViewCell {
     typealias TapCallback = () -> Void
     enum LocalConstants {
         static let imageSize = CGSize(width: 69, height: 69)
@@ -16,7 +16,7 @@ final class RetryCollectionViewCell: UICollectionViewCell {
 
     private let retryView = UIView(frame: .zero)
     private let retryLabel = UILabel(frame: .zero)
-    private let retryImageView = UIImageView(image: #imageLiteral(resourceName: "monk_icon"))
+    let retryImageView = UIImageView(image: #imageLiteral(resourceName: "monk_icon"))
     private var onTap: TapCallback?
 
     override init(frame: CGRect) {
@@ -39,11 +39,11 @@ final class RetryCollectionViewCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             retryView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            retryView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
+            retryView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -LocalConstants.imageSize.height),
             retryView.widthAnchor.constraint(equalToConstant: LocalConstants.imageSize.width),
             retryView.heightAnchor.constraint(equalToConstant: LocalConstants.imageSize.height),
             retryImageView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            retryImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0),
+            retryImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -LocalConstants.imageSize.height),
             retryImageView.widthAnchor.constraint(equalToConstant: LocalConstants.imageSize.width),
             retryImageView.heightAnchor.constraint(equalToConstant: LocalConstants.imageSize.height),
             retryLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
@@ -56,7 +56,7 @@ final class RetryCollectionViewCell: UICollectionViewCell {
         retryView.addGestureRecognizer(tapGestureRecognizer)
     }
 
-    func setup(with message: String, onTap block: TapCallback?) -> RetryCollectionViewCell {
+    func setup(with message: String, subtitle: String = "Tap to retry", onTap block: TapCallback?) -> RetryCollectionViewCell {
         self.onTap = block
         UIView.animate(withDuration: 0.2) {
             [self.retryImageView, self.retryLabel, self.retryView]
@@ -78,19 +78,17 @@ final class RetryCollectionViewCell: UICollectionViewCell {
         ]
         let title = NSMutableAttributedString(string: message , attributes: titleAttributes)
         title.append(NSAttributedString(string: "\n"))
-        let subTitle = NSAttributedString(string: "Tap to retry", attributes: subTitleAttributes)
+        let subTitle = NSAttributedString(string: subtitle, attributes: subTitleAttributes)
         title.append(subTitle)
         retryLabel.numberOfLines = 0
         retryLabel.attributedText = title
 
-        startRetyAnimation()
+        startAnimation()
 
         return self
     }
-}
 
-extension RetryCollectionViewCell {
-    private func startRetyAnimation() {
+    func startAnimation() {
         UIView.animate(
             withDuration: 1.5,
             delay: 0.1,
@@ -103,11 +101,13 @@ extension RetryCollectionViewCell {
                 animations: {
                     self.retryImageView.transform = .identity
             }, completion: { _ in
-                self.startRetyAnimation()
+                self.startAnimation()
             })
         })
     }
+}
 
+extension RetryCollectionViewCell {
     private func pathAnimation(_ frame: CGRect) -> CAKeyframeAnimation {
         let pathAnimation = CAKeyframeAnimation(keyPath: "position")
         pathAnimation.duration = 3

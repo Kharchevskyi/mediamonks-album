@@ -169,3 +169,11 @@ extension UIColor {
         )
     }
 }
+
+// MARK: - String
+extension String {
+    func firstUppercased() -> String {
+        guard let first = first else { return "" }
+        return String(first).uppercased() + dropFirst()
+    }
+}
