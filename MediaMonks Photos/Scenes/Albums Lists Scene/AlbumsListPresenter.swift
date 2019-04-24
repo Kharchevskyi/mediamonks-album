@@ -15,7 +15,7 @@ protocol AlbumsListPresenterInput: class {
 }
 
 protocol AlbumsListPresenterOutput: class {
-    func handle(state: AlbumsListViewController.State)
+    func handle(state: ViewState<MediaMonksAlbumViewModel>)
 }
 
 // MARK: - Implementation
@@ -32,14 +32,14 @@ final class AlbumsListPresenter {
 
 extension AlbumsListPresenter: AlbumsListPresenterInput {
     func update(with state: AlbumsListInteractor.State) {
-        AlbumsListViewController.State(state).map { output?.handle(state: $0) }
+        ViewState(state).map { output?.handle(state: $0) }
     }
 }
 
 
 // MARK: - Mapping
 
-extension AlbumsListViewController.State {
+extension ViewState where T == MediaMonksAlbumViewModel {
     init?(_ state: AlbumsListInteractor.State) {
         switch state {
         case .idle:

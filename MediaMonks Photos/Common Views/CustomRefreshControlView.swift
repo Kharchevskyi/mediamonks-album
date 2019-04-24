@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CustomRefreshControlView: UIView {
+final class CustomRefreshControl {
     var textColor: UIColor? {
         didSet {
             labels.forEach { $0.textColor = textColor }
@@ -27,28 +27,24 @@ final class CustomRefreshControlView: UIView {
     private var currentLabelIndex = 0
     private weak var refreshControl: UIRefreshControl?
 
-    override private init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
     init(text: String, refreshControl: UIRefreshControl) {
         self.refreshControl = refreshControl
-        super.init(frame: .zero)
+
         let arrangedViews = text.map { character -> UILabel in
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.text = String(character)
+            label.font = UIFont.boldSystemFont(ofSize: 25)
+            label.adjustsFontSizeToFitWidth = true
             return label
         }
         labels = arrangedViews
         let stackView = UIStackView(arrangedSubviews: arrangedViews)
         stackView.distribution = .equalSpacing
-        addSubview(stackView)
-        constrainToEdges(stackView)
+
+        refreshControl.addSubview(stackView)
+        refreshControl.constrainToEdges(stackView, insets: UIEdgeInsets(top: 4, left: 32, bottom: 4, right: 32))
+        refreshControl.tintColor = .clear
     }
 
     private func nextColor() -> UIColor {
@@ -100,6 +96,7 @@ final class CustomRefreshControlView: UIView {
 
     func animate() {
         isAnimating = true
+        refreshControl?.beginRefreshing()
 
         UIView.animate(
             withDuration: 0.1,
@@ -137,6 +134,7 @@ final class CustomRefreshControlView: UIView {
             $0.textColor = self.textColor
             $0.transform = .identity
         }
+        refreshControl?.endRefreshing()
     }
 
 }

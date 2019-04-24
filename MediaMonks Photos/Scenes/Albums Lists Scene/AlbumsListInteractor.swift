@@ -43,6 +43,7 @@ final class AlbumsListInteractor {
         case setup
         case dispose
         case loadNew
+        case retry
     }
 
     private let output: AlbumsListInteractorOutput
@@ -51,7 +52,7 @@ final class AlbumsListInteractor {
     private var albumsDisposable: Disposable?
     private var state: State = .idle {
         didSet {
-            output.update(with: state)
+            output.update(with: state) 
         }
     }
 
@@ -71,13 +72,14 @@ extension AlbumsListInteractor: AlbumsListInteractorInput {
             switch action {
             case .setup:   self.setup()
             case .dispose: self.dispose()
-            case .loadNew: self.getAlbums()
+            case .loadNew: self.getAlbums(isInitial: false)
+            case .retry:   self.getAlbums(isInitial: false)
             }
         }
     }
 
     private func setup() {
-        getAlbums()
+        getAlbums(isInitial: true)
     }
 
     private func dispose() {
@@ -86,12 +88,18 @@ extension AlbumsListInteractor: AlbumsListInteractorInput {
 }
 
 extension AlbumsListInteractor {
-    private func getAlbums() {
+    private func getAlbums(isInitial: Bool) {
+        if case .loading(.new) = state {
+            return
+        }
         albumsDisposable = mediaMonksApi.albums(request: AlbumsRequest())
             .producer
             .take(duringLifetimeOf: self).on(
                 started: { [weak self] in
-                    self?.state = .loading(.initial)
+                    let loadinState: AlbumsListInteractor.State.Loading = isInitial
+                        ? .initial
+                        : .new
+                    self?.state = .loading(loadinState)
                 },
                 failed: { [weak self] error in
                     self?.state = .failed(error)

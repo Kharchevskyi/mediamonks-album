@@ -6,7 +6,7 @@
 //  Copyright © 2019 Anton Kharchevskyi. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct MediaMonksAlbumViewModel: Equatable {
     let title: NSAttributedString
@@ -15,7 +15,12 @@ struct MediaMonksAlbumViewModel: Equatable {
 
 extension MediaMonksAlbumViewModel {
     init(_ album: MediaMonksAlbum) {
-        self.title = NSAttributedString(string: album.title)
+        let attributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14),
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
+
+        self.title = NSAttributedString(string: album.title, attributes: attributes)
         self.id = album.id
     }
 }
