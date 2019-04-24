@@ -107,7 +107,15 @@ extension AlbumsListViewController: UICollectionViewDelegate, UICollectionViewDa
             fatalError("no cell provided for this state")
         }
     }
-    
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard case let .loaded(items) = state,
+            let itemId = items[safe: indexPath.row]?.id
+        else { return }
+
+        output?.handle(action: .proceed(.photos(itemId)))
+    }
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if refreshControl.isRefreshing {
             reload()

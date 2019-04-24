@@ -11,7 +11,7 @@ import Foundation
 // MARK: - Protocols
 
 protocol PhotosPresenterInput: class {
-
+    func update(with state: State<MediaMonksPhoto>)
 }
 
 protocol PhotosPresenterOutput: class {
@@ -31,7 +31,7 @@ final class PhotosPresenter {
 }
 
 extension PhotosPresenter: PhotosPresenterInput {
-    func handle(state: ViewState<MediaMonksPhotoViewModel>) {
+    func update(with state: State<MediaMonksPhoto>) {
         
     }
 }

@@ -12,6 +12,7 @@ import Foundation
 
 protocol AlbumsListPresenterInput: class {
     func update(with state: State<MediaMonksAlbum>)
+    func proceed(to scene: AlbumsListInteractor.Action.Scene)
 }
 
 protocol AlbumsListPresenterOutput: class {
@@ -34,12 +35,25 @@ extension AlbumsListPresenter: AlbumsListPresenterInput {
     func update(with state: State<MediaMonksAlbum>) {
         ViewState(state).map { output?.handle(state: $0) }
     }
+
+    func proceed(to scene: AlbumsListInteractor.Action.Scene)  {
+        router.show(scene: AlbumsListRouter.Scene(scene))
+    }
 }
 
 
 // MARK: - Mapping
 
-extension ViewState where T == MediaMonksAlbumViewModel {
+fileprivate extension AlbumsListRouter.Scene {
+    init(_ scene: AlbumsListInteractor.Action.Scene) {
+        switch scene {
+        case .photos(let id):
+            self = AlbumsListRouter.Scene.photos(id)
+        }
+    }
+}
+
+fileprivate extension ViewState where T == MediaMonksAlbumViewModel {
     init?(_ state: State<MediaMonksAlbum>) {
         switch state {
         case .idle:

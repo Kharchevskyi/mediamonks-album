@@ -13,7 +13,7 @@ extension PhotosInteractor: PhotosViewControllerOutput { }
 extension PhotosPresenter: PhotosInteractorOutput { }
 
 struct PhotosConfigurator {
-    static func scene(with albumId: String) -> PhotosViewController {
+    static func scene(with albumId: Int) -> PhotosViewController {
         let viewController = PhotosViewController()
         let router = PhotosRouter(viewController: viewController)
         let presenter = PhotosPresenter(output: viewController, router: router)

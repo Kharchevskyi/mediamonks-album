@@ -18,16 +18,17 @@ protocol AlbumsListInteractorInput {
 
 protocol AlbumsListInteractorOutput {
     func update(with state: State<MediaMonksAlbum>)
+    func proceed(to scene: AlbumsListInteractor.Action.Scene)
 }
 
 // MARK: - Implementation
 
 final class AlbumsListInteractor {
     enum Action {
-        case setup
-        case dispose
-        case loadNew
-        case retry
+        case setup, dispose, loadNew, retry, proceed(Scene)
+        enum Scene {
+            case photos(Int)
+        }
     }
 
     private let output: AlbumsListInteractorOutput
@@ -54,10 +55,11 @@ extension AlbumsListInteractor: AlbumsListInteractorInput {
         scheduler.schedule { [weak self] in
             guard let self = self else { return }
             switch action {
-            case .setup:   self.setup()
+            case .setup: self.setup()
             case .dispose: self.dispose()
             case .loadNew: self.getAlbums(isInitial: false)
-            case .retry:   self.getAlbums(isInitial: false)
+            case .retry: self.getAlbums(isInitial: false)
+            case .proceed(let scene): self.proceedTo(scene)
             }
         }
     }
@@ -68,6 +70,10 @@ extension AlbumsListInteractor: AlbumsListInteractorInput {
 
     private func dispose() {
         albumsDisposable?.dispose()
+    }
+
+    private func proceedTo(_ scene: Action.Scene) {
+        output.proceed(to: scene)
     }
 }
 

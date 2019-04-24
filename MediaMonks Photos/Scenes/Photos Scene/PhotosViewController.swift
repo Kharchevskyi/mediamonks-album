@@ -40,6 +40,7 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,8 +49,8 @@ class PhotosViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .clear
-        collectionView.backgroundColor = .clear
+        view.backgroundColor = .white
+        collectionView.backgroundColor = .white
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cellType: AlbumLoadingCollectionViewCell.self)
@@ -59,6 +60,12 @@ class PhotosViewController: UIViewController {
 
         collectionView.collectionViewLayout = layout
         collectionView.bounces = false
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
