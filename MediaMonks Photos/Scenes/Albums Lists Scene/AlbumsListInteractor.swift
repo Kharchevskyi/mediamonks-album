@@ -17,28 +17,12 @@ protocol AlbumsListInteractorInput {
 }
 
 protocol AlbumsListInteractorOutput {
-    func update(with state: AlbumsListInteractor.State)
+    func update(with state: State<MediaMonksAlbum>)
 }
 
 // MARK: - Implementation
 
 final class AlbumsListInteractor {
-    enum State {
-        case idle
-        case loading(Loading)
-        case failed(APIError)
-        case loaded(Model)
-
-        enum Loading {
-            case initial
-            case new
-        }
-
-        struct Model {
-            let items: [MediaMonksAlbum]
-        }
-    }
-
     enum Action {
         case setup
         case dispose
@@ -50,7 +34,7 @@ final class AlbumsListInteractor {
     private let scheduler = QueueScheduler(qos: .background, name: "com.MediaMonks.AlbumsListInteractor.queue")
     private let mediaMonksApi: MediaMonksAPIType
     private var albumsDisposable: Disposable?
-    private var state: State = .idle {
+    private var state: State<MediaMonksAlbum> = .idle {
         didSet {
             output.update(with: state) 
         }
@@ -96,7 +80,7 @@ extension AlbumsListInteractor {
             .producer
             .take(duringLifetimeOf: self).on(
                 started: { [weak self] in
-                    let loadinState: AlbumsListInteractor.State.Loading = isInitial
+                    let loadinState: .State<MediaMonksAlbum>.Loading = isInitial
                         ? .initial
                         : .new
                     self?.state = .loading(loadinState)
@@ -105,7 +89,7 @@ extension AlbumsListInteractor {
                     self?.state = .failed(error)
                 },
                 value: { [weak self] albums in
-                    self?.state = .loaded(AlbumsListInteractor.State.Model(items: albums))
+                    self?.state = .loaded(State.Model(items: albums))
                 })
                 .start()
     }

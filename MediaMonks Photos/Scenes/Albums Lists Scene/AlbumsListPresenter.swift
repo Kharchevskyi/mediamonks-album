@@ -11,7 +11,7 @@ import Foundation
 // MARK: - Protocols
 
 protocol AlbumsListPresenterInput: class {
-    func update(with state: AlbumsListInteractor.State)
+    func update(with state: State<MediaMonksAlbum>)
 }
 
 protocol AlbumsListPresenterOutput: class {
@@ -31,7 +31,7 @@ final class AlbumsListPresenter {
 }
 
 extension AlbumsListPresenter: AlbumsListPresenterInput {
-    func update(with state: AlbumsListInteractor.State) {
+    func update(with state: State<MediaMonksAlbum>) {
         ViewState(state).map { output?.handle(state: $0) }
     }
 }
@@ -40,7 +40,7 @@ extension AlbumsListPresenter: AlbumsListPresenterInput {
 // MARK: - Mapping
 
 extension ViewState where T == MediaMonksAlbumViewModel {
-    init?(_ state: AlbumsListInteractor.State) {
+    init?(_ state: State<MediaMonksAlbum>) {
         switch state {
         case .idle:
             self = .idle
