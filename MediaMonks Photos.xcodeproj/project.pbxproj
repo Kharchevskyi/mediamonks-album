@@ -25,6 +25,8 @@
 		9F1A9B0E227103AE004DD56D /* MosaicCollectionViewLayoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B07227103AD004DD56D /* MosaicCollectionViewLayoutCache.swift */; };
 		9F1A9B0F227103AE004DD56D /* MosaicLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B08227103AD004DD56D /* MosaicLayoutAttributes.swift */; };
 		9F1A9B10227103AE004DD56D /* MosaicCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B09227103AE004DD56D /* MosaicCollectionViewLayout.swift */; };
+		9F1A9B1322710FCD004DD56D /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1222710FCD004DD56D /* PhotoCell.swift */; };
+		9F1A9B1622711935004DD56D /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1522711935004DD56D /* ImageCache.swift */; };
 		9FD52E91226CF83000EEBA73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52E90226CF83000EEBA73 /* AppDelegate.swift */; };
 		9FD52E98226CF83200EEBA73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E97226CF83200EEBA73 /* Assets.xcassets */; };
 		9FD52E9B226CF83200EEBA73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E99226CF83200EEBA73 /* LaunchScreen.storyboard */; };
@@ -66,6 +68,8 @@
 		9F1A9B07227103AD004DD56D /* MosaicCollectionViewLayoutCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicCollectionViewLayoutCache.swift; sourceTree = "<group>"; };
 		9F1A9B08227103AD004DD56D /* MosaicLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicLayoutAttributes.swift; sourceTree = "<group>"; };
 		9F1A9B09227103AE004DD56D /* MosaicCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicCollectionViewLayout.swift; sourceTree = "<group>"; };
+		9F1A9B1222710FCD004DD56D /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		9F1A9B1522711935004DD56D /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		9FD52E8D226CF83000EEBA73 /* MediaMonks Photos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MediaMonks Photos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD52E90226CF83000EEBA73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FD52E97226CF83200EEBA73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +132,7 @@
 			children = (
 				9FD52EBB226D1B7F00EEBA73 /* Networking */,
 				9F1A9AEC227074CE004DD56D /* TapticFeedback.swift */,
+				9F1A9B1522711935004DD56D /* ImageCache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -135,13 +140,14 @@
 		9F1A9AFD2270FB2D004DD56D /* Photos Scene */ = {
 			isa = PBXGroup;
 			children = (
-				9F1A9B11227103C1004DD56D /* Mosaic Layout */,
 				9F1A9AF12270FB25004DD56D /* PhotosConfigurator.swift */,
 				9F1A9AF22270FB25004DD56D /* PhotosViewController.swift */,
 				9F1A9AF42270FB25004DD56D /* PhotosInteractor.swift */,
 				9F1A9AF52270FB25004DD56D /* PhotosPresenter.swift */,
 				9F1A9AF62270FB25004DD56D /* PhotosRouter.swift */,
+				9F1A9B11227103C1004DD56D /* Mosaic Layout */,
 				9F1A9B0222710144004DD56D /* Models */,
+				9F1A9B1422711828004DD56D /* Views */,
 			);
 			path = "Photos Scene";
 			sourceTree = "<group>";
@@ -149,6 +155,7 @@
 		9F1A9B0222710144004DD56D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FD52EB7226D198A00EEBA73 /* MediaMonksPhoto.swift */,
 				9F1A9B002271013A004DD56D /* MediaMonksPhotoViewModel.swift */,
 			);
 			path = Models;
@@ -166,6 +173,14 @@
 				9F1A9B06227103AC004DD56D /* MosaicLayoutSectionMatrix.swift */,
 			);
 			path = "Mosaic Layout";
+			sourceTree = "<group>";
+		};
+		9F1A9B1422711828004DD56D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9F1A9B1222710FCD004DD56D /* PhotoCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9FD52E84226CF83000EEBA73 = {
@@ -190,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				9F1A9AE52270727D004DD56D /* Scenes */,
-				9FD52EB9226D1B6600EEBA73 /* Common Models */,
 				9FD52ED2226E507E00EEBA73 /* Common Views */,
 				9F1A9AEB227072F3004DD56D /* Services */,
 				9FD52EBA226D1B7400EEBA73 /* Extensions */,
@@ -208,15 +222,6 @@
 				9FD52E9C226CF83200EEBA73 /* Info.plist */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9FD52EB9226D1B6600EEBA73 /* Common Models */ = {
-			isa = PBXGroup;
-			children = (
-				9FD52EB3226D17E300EEBA73 /* MediaMonksAlbum.swift */,
-				9FD52EB7226D198A00EEBA73 /* MediaMonksPhoto.swift */,
-			);
-			path = "Common Models";
 			sourceTree = "<group>";
 		};
 		9FD52EBA226D1B7400EEBA73 /* Extensions */ = {
@@ -255,6 +260,7 @@
 		9FD52ECD226E049100EEBA73 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FD52EB3226D17E300EEBA73 /* MediaMonksAlbum.swift */,
 				9FD52ECB226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift */,
 			);
 			path = Models;
@@ -429,6 +435,7 @@
 				9FD52ECC226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift in Sources */,
 				9F1A9AE9227072CA004DD56D /* RetryCollectionViewCell.swift in Sources */,
 				9F1A9AED227074CE004DD56D /* TapticFeedback.swift in Sources */,
+				9F1A9B1322710FCD004DD56D /* PhotoCell.swift in Sources */,
 				9F1A9B0B227103AE004DD56D /* MosaicCollectionViewLayoutDelegate.swift in Sources */,
 				9FD52ED1226E13BD00EEBA73 /* Extensions.swift in Sources */,
 				9F1A9B0E227103AE004DD56D /* MosaicCollectionViewLayoutCache.swift in Sources */,
@@ -437,6 +444,7 @@
 				9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */,
 				9F1A9AE72270729F004DD56D /* ViewState.swift in Sources */,
 				9FD52EB2226D17C400EEBA73 /* FailableDecodable.swift in Sources */,
+				9F1A9B1622711935004DD56D /* ImageCache.swift in Sources */,
 				9F1A9AF02270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift in Sources */,
 				9F1A9AF72270FB25004DD56D /* PhotosConfigurator.swift in Sources */,
 				9F1A9B012271013A004DD56D /* MediaMonksPhotoViewModel.swift in Sources */,

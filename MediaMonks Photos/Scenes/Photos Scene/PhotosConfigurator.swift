@@ -20,7 +20,8 @@ struct PhotosConfigurator {
         let interactor = PhotosInteractor(
             output: presenter,
             albumId: albumId,
-            mediaMonksApi: MediaMonksAPI.default
+            mediaMonksApi: MediaMonksAPI.default,
+            imageCache: ImageCacheImpl.shared
         )
         viewController.output = interactor
         return viewController

@@ -66,11 +66,10 @@ final class AlbumsListViewController: UIViewController {
         collectionView.register(cellType: AlbumCell.self)
         collectionView.register(cellType: RetryCollectionViewCell.self)
         collectionView.register(cellType: AlbumLoadingCollectionViewCell.self)
-
-        collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
         view.constrainToEdges(collectionView)
 
+        collectionView.addSubview(refreshControl)
         activityView.textColor = .white
         activityView.font = UIFont.boldSystemFont(ofSize: 16)
     }

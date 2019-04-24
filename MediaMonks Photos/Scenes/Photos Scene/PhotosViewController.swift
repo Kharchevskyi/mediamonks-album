@@ -28,7 +28,7 @@ class PhotosViewController: UIViewController {
     var output: PhotosViewControllerOutput? 
     private var state: ViewState<MediaMonksPhotoViewModel> = .idle
     private let refreshControl: UIRefreshControl = UIRefreshControl()
-    private let collectionViewLayout = UICollectionViewFlowLayout()
+    private lazy var collectionViewLayout = MosaicCollectionViewLayout(delegate: self)
     private lazy var collectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: collectionViewLayout
@@ -41,25 +41,32 @@ class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        output?.handle(action: .setup)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
- 
+
+        output?.handle(action: .dispose)
     }
 
     private func setupUI() {
-        view.backgroundColor = .white
-        collectionView.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.barTintColor = UIColor.black.withAlphaComponent(0.8)
+
+        view.backgroundColor = .black
+        view.addSubview(collectionView)
+        view.constrainToEdges(collectionView)
+        collectionView.backgroundColor = .black
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cellType: AlbumLoadingCollectionViewCell.self)
         collectionView.register(cellType: RetryCollectionViewCell.self)
+        collectionView.register(cellType: PhotoCell.self)
 
-        let layout = MosaicCollectionViewLayout(delegate: self)
-
-        collectionView.collectionViewLayout = layout
-        collectionView.bounces = false
+        collectionView.addSubview(refreshControl)
+        activityView.textColor = .white
+        activityView.font = UIFont.boldSystemFont(ofSize: 16)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,8 +77,11 @@ class PhotosViewController: UIViewController {
 }
 
 extension PhotosViewController: PhotosViewControllerInput {
-    func handle(state: ViewState<MediaMonksPhotoViewModel>) {
-
+    func handle(state newState: ViewState<MediaMonksPhotoViewModel>) {
+        self.state = newState
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -85,12 +95,12 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         case .loading(.initial):
             return collectionView.dequeueReusableCell(ofType: AlbumLoadingCollectionViewCell.self, at: indexPath)
                 .setup(with: "We are almost here", subtitle: "😻😻😻😻😻", onTap: nil)
-//        case .loaded(let items):
-//            guard let viewModel = items[safe: indexPath.row] else {
-//                fatalError("no cell provided")
-//            }
-//            return collectionView.dequeueReusableCell(ofType: AlbumCell.self, at: indexPath)
-//                .setup(with: viewModel)
+        case .loaded(let photos):
+            guard let viewModel = photos[safe: indexPath.row] else {
+                fatalError("no cell provided")
+            }
+            return collectionView.dequeueReusableCell(ofType: PhotoCell.self, at: indexPath)
+                .setup(with: viewModel)
         case .failed(.retryable(let message)):
             return collectionView.dequeueReusableCell(ofType: RetryCollectionViewCell.self, at: indexPath)
                 .setup(with: message, onTap: { [output] in
@@ -134,9 +144,9 @@ extension PhotosViewController: MosaicCollectionViewLayoutDelegate {
         let geometryInfo = MosaicLayoutSectionGeometryInfo(
             rowHeight: rowHeight,
             columns: columns,
-            minimumInteritemSpacing: 1,
-            minimumLineSpacing: 1,
-            sectionInset: UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0),
+            minimumInteritemSpacing: 2,
+            minimumLineSpacing: 2,
+            sectionInset: .zero,
             headerHeight: 0
         )
         return geometryInfo

@@ -32,6 +32,28 @@ final class PhotosPresenter {
 
 extension PhotosPresenter: PhotosPresenterInput {
     func update(with state: State<MediaMonksPhoto>) {
-        
+        ViewState(state).map { output?.handle(state: $0) }
+    }
+}
+
+fileprivate extension ViewState where T == MediaMonksPhotoViewModel {
+    init?(_ state: State<MediaMonksPhoto>) {
+        switch state {
+        case .idle:
+            self = .idle
+        case .failed(let error):
+            switch error {
+            case .dataMapping:      self = .failed(.message(error.userDescription))
+            case .malformedBaseURL: self = .failed(.message(error.userDescription))
+            case .request:          self = .failed(.retryable(error.userDescription))
+            }
+        case .loading(.initial):
+            self = .loading(.initial)
+        case .loading(.new):
+            self = .loading(.new)
+        case .loaded(let model):
+            let viewModels = model.items.map(MediaMonksPhotoViewModel.init)
+            self = .loaded(viewModels)
+        }
     }
 }

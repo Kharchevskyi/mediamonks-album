@@ -31,6 +31,7 @@ final class PhotosInteractor {
     private let albumId: Int
     private let scheduler = QueueScheduler(qos: .background, name: "com.MediaMonks.PhotosInteractor.queue")
     private let mediaMonksApi: MediaMonksAPIType
+    private let imageCache: ImageCache
     private var photosDisposable: Disposable?
     private var state: State<MediaMonksPhoto> = .idle {
         didSet {
@@ -38,10 +39,16 @@ final class PhotosInteractor {
         }
     }
 
-    init(output: PhotosInteractorOutput, albumId: Int, mediaMonksApi: MediaMonksAPIType) {
+    init(
+        output: PhotosInteractorOutput,
+        albumId: Int,
+        mediaMonksApi: MediaMonksAPIType,
+        imageCache: ImageCache
+    ) {
         self.output = output
         self.albumId = albumId
         self.mediaMonksApi = mediaMonksApi
+        self.imageCache = imageCache
     }
 }
 
@@ -81,13 +88,14 @@ extension PhotosInteractor: PhotosInteractorInput {
                 failed: { [weak self] error in
                     self?.state = .failed(error)
                 },
-                value: { [weak self] albums in
-                    self?.state = .loaded(State.Model(items: albums))
-            })
-            .start()
+                value: { [weak self] photos in
+                    self?.state = .loaded(State.Model(items: photos))
+                })
+                .start()
     }
 
     private func dispose() {
         photosDisposable?.dispose()
+        imageCache.clear()
     }
 }
