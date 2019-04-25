@@ -18,6 +18,6 @@ More about VIP
 https://hackernoon.com/introducing-clean-swift-architecture-vip-770a639ad7bf  
 https://clean-swift.com  
   
-Also used **States** to handle views based on different states.  
-Try to load albums with slow internet connection and without internet to take a look on state handlings and "nice animations").
-
+- Used **States** with generics parameters to handle views based on different states.  
+  *Try to load albums with slow internet connection and without internet to take a look on state handlings and "nice animations").*  
+- Added custom interactive transitions between controllers.
