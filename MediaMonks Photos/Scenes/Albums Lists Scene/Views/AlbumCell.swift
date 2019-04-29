@@ -26,10 +26,10 @@ final class AlbumCell: UICollectionViewCell {
         addSubview(titleLabel)
         constrainToEdges(
             titleLabel,
-            insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+            insets: UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         )
         titleLabel.numberOfLines = 0
-        layer.cornerRadius = 8
+        
         layer.borderWidth = 1
         layer.borderColor = UIColor.white.cgColor
         backgroundColor = UIColor.darkGray
@@ -44,6 +44,6 @@ final class AlbumCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        layer.cornerRadius = bounds.size.width / 2
     }
 }

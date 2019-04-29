@@ -27,6 +27,10 @@
 		9F1A9B10227103AE004DD56D /* MosaicCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B09227103AE004DD56D /* MosaicCollectionViewLayout.swift */; };
 		9F1A9B1322710FCD004DD56D /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1222710FCD004DD56D /* PhotoCell.swift */; };
 		9F1A9B1622711935004DD56D /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1522711935004DD56D /* ImageCache.swift */; };
+		9F1A9B1822711C39004DD56D /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1722711C39004DD56D /* UIImageView+Ext.swift */; };
+		9F1A9B1A22711C58004DD56D /* Collection+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1922711C58004DD56D /* Collection+Ext.swift */; };
+		9F1A9B1C22711C74004DD56D /* ReusableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1B22711C74004DD56D /* ReusableView+Ext.swift */; };
+		9F1A9B1E22711D04004DD56D /* CustomNavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1A9B1D22711D04004DD56D /* CustomNavigationControllerDelegate.swift */; };
 		9FD52E91226CF83000EEBA73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52E90226CF83000EEBA73 /* AppDelegate.swift */; };
 		9FD52E98226CF83200EEBA73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E97226CF83200EEBA73 /* Assets.xcassets */; };
 		9FD52E9B226CF83200EEBA73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD52E99226CF83200EEBA73 /* LaunchScreen.storyboard */; };
@@ -45,6 +49,7 @@
 		9FD52ECF226E0E9400EEBA73 /* CustomRefreshControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */; };
 		9FD52ED1226E13BD00EEBA73 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ED0226E13BD00EEBA73 /* Extensions.swift */; };
 		9FD52ED7226F679B00EEBA73 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ED6226F679B00EEBA73 /* AlbumCell.swift */; };
+		9FEAEEA822765B3500292747 /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEA722765B3500292747 /* FadeTransition.swift */; };
 		F18801CE7DF49E4C40BA2BCE /* Pods_MediaMonks_Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +75,10 @@
 		9F1A9B09227103AE004DD56D /* MosaicCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicCollectionViewLayout.swift; sourceTree = "<group>"; };
 		9F1A9B1222710FCD004DD56D /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		9F1A9B1522711935004DD56D /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		9F1A9B1722711C39004DD56D /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
+		9F1A9B1922711C58004DD56D /* Collection+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Ext.swift"; sourceTree = "<group>"; };
+		9F1A9B1B22711C74004DD56D /* ReusableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReusableView+Ext.swift"; sourceTree = "<group>"; };
+		9F1A9B1D22711D04004DD56D /* CustomNavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		9FD52E8D226CF83000EEBA73 /* MediaMonks Photos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MediaMonks Photos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD52E90226CF83000EEBA73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FD52E97226CF83200EEBA73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,6 +99,7 @@
 		9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRefreshControlView.swift; sourceTree = "<group>"; };
 		9FD52ED0226E13BD00EEBA73 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9FD52ED6226F679B00EEBA73 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
+		9FEAEEA722765B3500292747 /* FadeTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
 		B61D64EB0582EAF4C8BFAC11 /* Pods-MediaMonks Photos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaMonks Photos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MediaMonks Photos/Pods-MediaMonks Photos.debug.xcconfig"; sourceTree = "<group>"; };
 		F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaMonks_Photos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -109,8 +119,7 @@
 		9F1A9AE52270727D004DD56D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				9F1A9AE62270729F004DD56D /* ViewState.swift */,
-				9F1A9AFE2270FE95004DD56D /* State.swift */,
+				9FEAEEAA22765B6E00292747 /* Common */,
 				9FD52ECA226DDA6A00EEBA73 /* Albums Lists Scene */,
 				9F1A9AFD2270FB2D004DD56D /* Photos Scene */,
 			);
@@ -229,6 +238,9 @@
 			children = (
 				9FD52EB1226D17C400EEBA73 /* FailableDecodable.swift */,
 				9FD52ED0226E13BD00EEBA73 /* Extensions.swift */,
+				9F1A9B1722711C39004DD56D /* UIImageView+Ext.swift */,
+				9F1A9B1922711C58004DD56D /* Collection+Ext.swift */,
+				9F1A9B1B22711C74004DD56D /* ReusableView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -272,6 +284,25 @@
 				9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */,
 			);
 			path = "Common Views";
+			sourceTree = "<group>";
+		};
+		9FEAEEA922765B5200292747 /* Custom Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				9FEAEEA722765B3500292747 /* FadeTransition.swift */,
+				9F1A9B1D22711D04004DD56D /* CustomNavigationControllerDelegate.swift */,
+			);
+			path = "Custom Transitions";
+			sourceTree = "<group>";
+		};
+		9FEAEEAA22765B6E00292747 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9FEAEEA922765B5200292747 /* Custom Transitions */,
+				9F1A9AE62270729F004DD56D /* ViewState.swift */,
+				9F1A9AFE2270FE95004DD56D /* State.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		A54E7B90FB90B494475586A5 /* Frameworks */ = {
@@ -416,6 +447,7 @@
 			files = (
 				9FD52EC8226DDA6500EEBA73 /* AlbumsListPresenter.swift in Sources */,
 				9F1A9B0A227103AE004DD56D /* MosaicLayoutSectionGeometry.swift in Sources */,
+				9F1A9B1822711C39004DD56D /* UIImageView+Ext.swift in Sources */,
 				9F1A9AF82270FB25004DD56D /* PhotosViewController.swift in Sources */,
 				9F1A9B0F227103AE004DD56D /* MosaicLayoutAttributes.swift in Sources */,
 				9F1A9B10227103AE004DD56D /* MosaicCollectionViewLayout.swift in Sources */,
@@ -434,12 +466,16 @@
 				9F1A9AFC2270FB25004DD56D /* PhotosRouter.swift in Sources */,
 				9FD52ECC226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift in Sources */,
 				9F1A9AE9227072CA004DD56D /* RetryCollectionViewCell.swift in Sources */,
+				9FEAEEA822765B3500292747 /* FadeTransition.swift in Sources */,
+				9F1A9B1A22711C58004DD56D /* Collection+Ext.swift in Sources */,
 				9F1A9AED227074CE004DD56D /* TapticFeedback.swift in Sources */,
 				9F1A9B1322710FCD004DD56D /* PhotoCell.swift in Sources */,
+				9F1A9B1C22711C74004DD56D /* ReusableView+Ext.swift in Sources */,
 				9F1A9B0B227103AE004DD56D /* MosaicCollectionViewLayoutDelegate.swift in Sources */,
 				9FD52ED1226E13BD00EEBA73 /* Extensions.swift in Sources */,
 				9F1A9B0E227103AE004DD56D /* MosaicCollectionViewLayoutCache.swift in Sources */,
 				9FD52ED7226F679B00EEBA73 /* AlbumCell.swift in Sources */,
+				9F1A9B1E22711D04004DD56D /* CustomNavigationControllerDelegate.swift in Sources */,
 				9F1A9B0D227103AE004DD56D /* MosaicLayoutSectionMatrix.swift in Sources */,
 				9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */,
 				9F1A9AE72270729F004DD56D /* ViewState.swift in Sources */,

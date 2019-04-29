@@ -19,7 +19,7 @@ extension MediaMonksAlbumViewModel {
         paragraph.alignment = .center
 
         let attributes: [NSAttributedString.Key : Any] = [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 13),
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12),
             NSAttributedString.Key.foregroundColor: UIColor.white,
             NSAttributedString.Key.paragraphStyle: paragraph
         ]

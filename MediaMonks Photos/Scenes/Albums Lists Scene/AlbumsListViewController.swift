@@ -28,7 +28,7 @@ final class AlbumsListViewController: UIViewController {
 
     var output: AlbumsListViewControllerOutput?
     private var state: ViewState<MediaMonksAlbumViewModel> = .idle
-    private let refreshControl: UIRefreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
     private let collectionViewLayout = UICollectionViewFlowLayout()
     private lazy var collectionView = UICollectionView(
         frame: .zero,
@@ -38,6 +38,8 @@ final class AlbumsListViewController: UIViewController {
         text: "Media Monks",
         refreshControl: refreshControl
     )
+
+    private var navigationControllerDelegate: CustomNavigationControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +61,8 @@ final class AlbumsListViewController: UIViewController {
     }
 
     private func setupUI() {
+        navigationControllerDelegate = CustomNavigationControllerDelegate(navigationController: self.navigationController!)
+
         view.backgroundColor = .black
 
         collectionView.delegate = self
@@ -125,13 +129,21 @@ extension AlbumsListViewController: UICollectionViewDelegate, UICollectionViewDa
 
 extension AlbumsListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
         switch state {
         case .failed(.retryable),
              .loading(.initial):
-            return collectionView.frame.size
+            return CGSize(
+                width: collectionView.frame.size.width
+                    - LocalConstants.insets.left
+                    - LocalConstants.insets.right,
+                height: collectionView.frame.size.height
+                    - LocalConstants.insets.top
+                    - LocalConstants.insets.bottom
+            )
         case .loaded:
-            let width = collectionView.frame.size.width / 3 - LocalConstants.minimumInteritemSpacing * 2
+            let width = collectionView.frame.size.width / 3
+                - LocalConstants.insets.left
+                - LocalConstants.insets.right
             return CGSize(
                 width: width,
                 height: width
@@ -141,11 +153,6 @@ extension AlbumsListViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-
-        return LocalConstants.minimumInteritemSpacing
-    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return LocalConstants.insets
@@ -217,4 +224,4 @@ extension AlbumsListViewController {
         endRefreshing()
         collectionView.reloadData()
     }
-}
+} 

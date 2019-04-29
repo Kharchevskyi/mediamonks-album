@@ -62,7 +62,7 @@ final class CustomRefreshControl {
 
     private func animateNextStep() {
         UIView.animate(
-            withDuration: 0.35,
+            withDuration: 0.3,
             delay: 0.0,
             options: .curveLinear,
             animations: {
@@ -99,7 +99,7 @@ final class CustomRefreshControl {
         refreshControl?.beginRefreshing()
 
         UIView.animate(
-            withDuration: 0.1,
+            withDuration: 0.2,
             delay: 0.0,
             options: .curveLinear,
             animations: {
@@ -108,7 +108,7 @@ final class CustomRefreshControl {
                 label.textColor = self.nextColor()
             }, completion: { _ in
                 UIView.animate(
-                    withDuration: 0.05,
+                    withDuration: 0.1,
                     delay: 0.0,
                     options: .curveLinear,
                     animations: {

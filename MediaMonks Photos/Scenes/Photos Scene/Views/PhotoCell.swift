@@ -34,9 +34,9 @@ final class PhotoCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             titleLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 20),
             titleLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor)
+            titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            titleLabel.topAnchor.constraint(greaterThanOrEqualTo: imageView.topAnchor, constant: 8)
             ])
     }
 
