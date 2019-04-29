@@ -37,6 +37,8 @@ class PhotoDetailViewController: UIViewController {
 
     private func setupUI() {
         self.imageScrollView = ImageScrollView(frame: self.view.bounds)
+        imageScrollView.translatesAutoresizingMaskIntoConstraints = false
+
         self.view.addSubview(self.imageScrollView)
 
         guard let image = image else { return }
@@ -50,6 +52,10 @@ class PhotoDetailViewController: UIViewController {
         let guide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
+            imageScrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            imageScrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            imageScrollView.topAnchor.constraint(equalTo: bar.bottomAnchor, constant: 0),
+            imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             bar.leftAnchor.constraint(equalTo: guide.leftAnchor),
             bar.rightAnchor.constraint(equalTo: guide.rightAnchor),
             bar.topAnchor.constraint(equalTo: guide.topAnchor),
@@ -60,17 +66,6 @@ class PhotoDetailViewController: UIViewController {
     @objc private func handleTap() {
         dismiss(animated: true, completion: nil)
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        imageScrollView.frame = CGRect(
-            x: 0,
-            y: bar.frame.size.height,
-            width: view.frame.size.width,
-            height: view.frame.size.height - bar.frame.size.height
-        )
-        imageScrollView.centerImage()
-    }
 }
 
 extension PhotoDetailViewController: PhotoDetailViewControllerInput {
@@ -78,16 +73,19 @@ extension PhotoDetailViewController: PhotoDetailViewControllerInput {
 }
 
 extension PhotoDetailViewController: ImageTransitionProtocol {
-    func tranisitionSetup(){
+    func tranisitionSetup() {
         imageScrollView.isHidden = true
         title = viewModel?.title.string
     }
 
-    func tranisitionCleanup(){
+    func tranisitionCleanup() {
         imageScrollView.isHidden = false
     }
 
-    func imageFrame() -> CGRect{
-        return imageScrollView.zoomView.frame
+    func imageFrame() -> CGRect {
+        return imageScrollView.convert(
+            imageScrollView.zoomView.frame,
+            to: view
+        )
     }
 }
