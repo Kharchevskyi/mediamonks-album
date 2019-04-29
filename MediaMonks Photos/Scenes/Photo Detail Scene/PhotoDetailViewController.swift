@@ -24,6 +24,8 @@ class PhotoDetailViewController: UIViewController {
     var output: PhotoDetailViewControllerOutput?
     private lazy var imageScrollView = ImageScrollView(frame: self.view.bounds)
     private let bar = UIView()
+    private var initialTouchPoint: CGPoint?
+    private var initialCenter: CGPoint?
 
     var image: UIImage?
     var viewModel: MediaMonksPhotoViewModel?
@@ -36,7 +38,7 @@ class PhotoDetailViewController: UIViewController {
     }
 
     private func setupUI() {
-        self.imageScrollView = ImageScrollView(frame: self.view.bounds)
+        self.imageScrollView = ImageScrollView(frame: view.bounds)
         imageScrollView.translatesAutoresizingMaskIntoConstraints = false
 
         self.view.addSubview(self.imageScrollView)
@@ -61,10 +63,45 @@ class PhotoDetailViewController: UIViewController {
             bar.topAnchor.constraint(equalTo: guide.topAnchor),
             bar.heightAnchor.constraint(equalToConstant: 40)
             ])
+
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
+        imageScrollView.zoomView.addGestureRecognizer(panGesture)
     }
 
     @objc private func handleTap() {
         dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func handlePan(gesture: UIPanGestureRecognizer) {
+
+        let touchPoint = gesture.location(in: view)
+
+        switch gesture.state {
+        case .began:
+            initialCenter = imageScrollView.center
+            initialTouchPoint = touchPoint
+        case .changed:
+            let translation = gesture.translation(in: view)
+            imageScrollView.center = CGPoint(
+                x: imageScrollView.center.x + translation.x,
+                y: imageScrollView.center.y + translation.y
+            )
+            gesture.setTranslation(.zero, in: view)
+        case .ended, .cancelled:
+            guard let initialTouchPoint = initialTouchPoint else { return }
+            if abs(touchPoint.y - initialTouchPoint.y) > 100 {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.imageScrollView.center = self.initialCenter ?? .zero
+                })
+            }
+        default:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imageScrollView.center = self.initialCenter ?? .zero
+            })
+            initialTouchPoint = nil
+        }
     }
 }
 
@@ -88,4 +125,26 @@ extension PhotoDetailViewController: ImageTransitionProtocol {
             to: view
         )
     }
+}
+
+enum PanDirection: Equatable {
+    case up, down, left, right
+    public var isVertical: Bool { return [.up, .down].contains(self) }
+    public var isHorizontal: Bool { return !isVertical }
+}
+
+extension UIPanGestureRecognizer {
+    var direction: PanDirection? {
+        let velocity = self.velocity(in: view)
+        let isVertical = abs(velocity.y) > abs(velocity.x)
+        switch (isVertical, velocity.x, velocity.y) {
+        case (true, _, let y) where y < 0: return .up
+        case (true, _, let y) where y > 0: return .down
+        case (false, let x, _) where x > 0: return .right
+        case (false, let x, _) where x < 0: return .left
+        default: return nil
+        }
+
+    }
+
 }
