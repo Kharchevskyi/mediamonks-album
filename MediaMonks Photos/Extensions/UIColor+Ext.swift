@@ -50,4 +50,8 @@ extension UIColor {
     static var monkYellow: UIColor {
         return UIColor.init(red: 220, green: 156, blue: 62)
     }
+
+    static var monkGray: UIColor {
+        return UIColor.init(red: 50, green: 55, blue: 70)
+    }
 }

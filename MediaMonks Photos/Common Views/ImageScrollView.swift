@@ -39,6 +39,10 @@ final class ImageScrollView: UIScrollView {
 }
 
 extension ImageScrollView {
+    func setImage(with urlString: String?) {
+        zoomView.loadImageAsync(with: urlString)
+    }
+
     func display(_ image: UIImage) {
         zoomView?.removeFromSuperview()
         zoomView = nil

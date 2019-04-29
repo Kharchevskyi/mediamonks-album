@@ -29,13 +29,13 @@ final class FadeTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let fromView = transitionContext.view(forKey: .from)!
 
         toView.alpha = startingAlpha
-        fromView.alpha = 0.8
+        fromView.alpha = 1.0
 
         toView.frame = containerView.frame
         containerView.addSubview(toView)
 
         UIView.animate(withDuration: self.transitionDuration(using: transitionContext), animations: { () -> Void in
-            toView.alpha   = 1.0
+            toView.alpha = 1.0
             fromView.alpha = 0.0
         }, completion: { _ in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

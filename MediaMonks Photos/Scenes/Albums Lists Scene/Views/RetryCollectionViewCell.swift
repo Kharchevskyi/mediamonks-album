@@ -145,7 +145,7 @@ extension RetryCollectionViewCell {
     private func animateRetryTap() {
         (10...Int.random(in: (20...30)))
             .forEach { tag in
-                let imageView = UIImageView(image: #imageLiteral(resourceName: "photo_icon"))
+                let imageView = UIImageView(image: #imageLiteral(resourceName: "wait").tinted(with: .random))
                 let sizeDimension = CGFloat.random(in: (20...30))
 
                 window?.rootViewController?.view.addSubview(imageView)

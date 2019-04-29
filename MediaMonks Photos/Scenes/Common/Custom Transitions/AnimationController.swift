@@ -19,14 +19,14 @@ final class AnimationController: NSObject, UIViewControllerAnimatedTransitioning
     private var fromDelegate: ImageTransitionProtocol?
     private var toDelegate: ImageTransitionProtocol?
 
-    func setupImageTransition(_ image: UIImage?, fromDelegate: ImageTransitionProtocol, toDelegate: ImageTransitionProtocol){
+    func setupImageTransition(_ image: UIImage?, fromDelegate: ImageTransitionProtocol, toDelegate: ImageTransitionProtocol) {
         self.image = image
         self.fromDelegate = fromDelegate
         self.toDelegate = toDelegate
     }
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+        return 0.5
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -66,9 +66,12 @@ final class AnimationController: NSObject, UIViewControllerAnimatedTransitioning
         containerView.bringSubviewToFront(imageView)
         let toFrame = toDelegate?.imageFrame() ?? .zero
 
+
         UIView.animate(
             withDuration: transitionDuration(using: transitionContext),
             delay: 0,
+            usingSpringWithDamping: 0.75,
+            initialSpringVelocity: 0.67,
             options: .curveEaseOut,
             animations: {
                 toSnapshot.alpha = 1

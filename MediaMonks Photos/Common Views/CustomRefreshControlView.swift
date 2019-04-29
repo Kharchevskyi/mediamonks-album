@@ -128,7 +128,7 @@ final class CustomRefreshControl {
                 })
     }
 
-    func stopAnimating() {
+    func endRefreshing() {
         isAnimating = false
         labels.forEach {
             $0.textColor = self.textColor

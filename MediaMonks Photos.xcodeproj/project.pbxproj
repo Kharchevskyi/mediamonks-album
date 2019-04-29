@@ -60,6 +60,8 @@
 		9FEAEEBE227777D200292747 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEBD227777D200292747 /* Constants.swift */; };
 		9FEAEEC02277783000292747 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEBF2277783000292747 /* UIColor+Ext.swift */; };
 		9FEAEEC222777C2600292747 /* RadialGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */; };
+		9FEAEEC622778EE300292747 /* PhotoDetailBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEC522778EE300292747 /* PhotoDetailBar.swift */; };
+		9FEAEEC9227794E600292747 /* InsetsTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEC8227794E600292747 /* InsetsTextLabel.swift */; };
 		F18801CE7DF49E4C40BA2BCE /* Pods_MediaMonks_Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +122,8 @@
 		9FEAEEBD227777D200292747 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9FEAEEBF2277783000292747 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientLayer.swift; sourceTree = "<group>"; };
+		9FEAEEC522778EE300292747 /* PhotoDetailBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailBar.swift; sourceTree = "<group>"; };
+		9FEAEEC8227794E600292747 /* InsetsTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetsTextLabel.swift; sourceTree = "<group>"; };
 		B61D64EB0582EAF4C8BFAC11 /* Pods-MediaMonks Photos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaMonks Photos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MediaMonks Photos/Pods-MediaMonks Photos.debug.xcconfig"; sourceTree = "<group>"; };
 		F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaMonks_Photos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -307,6 +311,7 @@
 				9FEAEEBB2277532A00292747 /* ImageScrollView.swift */,
 				9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */,
 				9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */,
+				9FEAEEC8227794E600292747 /* InsetsTextLabel.swift */,
 			);
 			path = "Common Views";
 			sourceTree = "<group>";
@@ -347,8 +352,17 @@
 				9FEAEEB122774B0C00292747 /* PhotoDetailInteractor.swift */,
 				9FEAEEB222774B0C00292747 /* PhotoDetailPresenter.swift */,
 				9FEAEEB322774B0C00292747 /* PhotoDetailRouter.swift */,
+				9FEAEEC72277929F00292747 /* Views */,
 			);
 			path = "Photo Detail Scene";
+			sourceTree = "<group>";
+		};
+		9FEAEEC72277929F00292747 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9FEAEEC522778EE300292747 /* PhotoDetailBar.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		A54E7B90FB90B494475586A5 /* Frameworks */ = {
@@ -526,6 +540,7 @@
 				9F1A9B0E227103AE004DD56D /* MosaicCollectionViewLayoutCache.swift in Sources */,
 				9FEAEEB922774B0C00292747 /* PhotoDetailRouter.swift in Sources */,
 				9FD52ED7226F679B00EEBA73 /* AlbumCell.swift in Sources */,
+				9FEAEEC9227794E600292747 /* InsetsTextLabel.swift in Sources */,
 				9F1A9B1E22711D04004DD56D /* CustomNavigationControllerDelegate.swift in Sources */,
 				9F1A9B0D227103AE004DD56D /* MosaicLayoutSectionMatrix.swift in Sources */,
 				9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */,
@@ -536,6 +551,7 @@
 				9FEAEEB522774B0C00292747 /* PhotoDetailViewController.swift in Sources */,
 				9F1A9AF02270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift in Sources */,
 				9F1A9AF72270FB25004DD56D /* PhotosConfigurator.swift in Sources */,
+				9FEAEEC622778EE300292747 /* PhotoDetailBar.swift in Sources */,
 				9FEAEEB822774B0C00292747 /* PhotoDetailPresenter.swift in Sources */,
 				9F1A9B012271013A004DD56D /* MediaMonksPhotoViewModel.swift in Sources */,
 				9FEAEEBC2277532A00292747 /* ImageScrollView.swift in Sources */,
@@ -691,7 +707,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ANT.MediaMonks-Photos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -711,7 +727,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ANT.MediaMonks-Photos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

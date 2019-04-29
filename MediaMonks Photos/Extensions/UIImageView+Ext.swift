@@ -36,6 +36,7 @@ extension UIImageView {
         }
 
         let activityIndicator = UIActivityIndicatorView(style: .white)
+        activityIndicator.startAnimating()
         addSubview(activityIndicator)
 
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false

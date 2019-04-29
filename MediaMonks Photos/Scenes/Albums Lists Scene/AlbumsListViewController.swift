@@ -217,7 +217,7 @@ extension AlbumsListViewController {
 
     private func endRefreshing() {
         DispatchQueue.main.async {
-            self.activityView.stopAnimating()
+            self.activityView.endRefreshing()
             self.refreshControl.endRefreshing()
         }
     }

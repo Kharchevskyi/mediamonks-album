@@ -23,9 +23,10 @@ protocol PhotoDetailViewControllerOutput {
 class PhotoDetailViewController: UIViewController {
     var output: PhotoDetailViewControllerOutput?
     private lazy var imageScrollView = ImageScrollView(frame: self.view.bounds)
-    private let bar = UIView()
+    private let bar = PhotoDetailBar()
     private var initialTouchPoint: CGPoint?
     private var initialCenter: CGPoint?
+    private let descritpionLabel = InsetsTextLabel()
 
     var image: UIImage?
     var viewModel: MediaMonksPhotoViewModel?
@@ -40,35 +41,59 @@ class PhotoDetailViewController: UIViewController {
     private func setupUI() {
         self.imageScrollView = ImageScrollView(frame: view.bounds)
         imageScrollView.translatesAutoresizingMaskIntoConstraints = false
-
-        self.view.addSubview(self.imageScrollView)
+        view.backgroundColor = Constants.Colors.mainColor
+        imageScrollView.backgroundColor = Constants.Colors.mainColor
+        view.addSubview(self.imageScrollView)
 
         guard let image = image else { return }
         imageScrollView.display(image)
 
-
         bar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bar)
-        bar.backgroundColor = .white
+
+        bar.backgroundColor = .monkGray
         bar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         let guide = view.safeAreaLayoutGuide
 
+        let descriptionView = UIView()
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(descriptionView)
+        descriptionView.backgroundColor = .monkGray
+        descritpionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descritpionLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        descritpionLabel.textAlignment = .center
+        descritpionLabel.numberOfLines = 0
+        descritpionLabel.textColor = .monkYellow
+        view.addSubview(descritpionLabel)
+        descritpionLabel.backgroundColor = .monkGray
+        descritpionLabel.textInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
         NSLayoutConstraint.activate([
             imageScrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
             imageScrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
             imageScrollView.topAnchor.constraint(equalTo: bar.bottomAnchor, constant: 0),
-            imageScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            imageScrollView.bottomAnchor.constraint(equalTo: descritpionLabel.topAnchor, constant: 0),
             bar.leftAnchor.constraint(equalTo: guide.leftAnchor),
             bar.rightAnchor.constraint(equalTo: guide.rightAnchor),
-            bar.topAnchor.constraint(equalTo: guide.topAnchor),
-            bar.heightAnchor.constraint(equalToConstant: 40)
-            ])
+            bar.topAnchor.constraint(equalTo: guide.topAnchor, constant: -statusBarHeight),
+            bar.heightAnchor.constraint(equalToConstant: statusBarHeight + 40),
+            descritpionLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            descritpionLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            descritpionLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            descritpionLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
+            descriptionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            descriptionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            descriptionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            descriptionView.heightAnchor.constraint(equalToConstant: 40)
+        ])
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
         imageScrollView.zoomView.addGestureRecognizer(panGesture)
     }
 
     @objc private func handleTap() {
+        TapTicFeedback.generate(.medium)
         dismiss(animated: true, completion: nil)
     }
 
@@ -90,6 +115,7 @@ class PhotoDetailViewController: UIViewController {
         case .ended, .cancelled:
             guard let initialTouchPoint = initialTouchPoint else { return }
             if abs(touchPoint.y - initialTouchPoint.y) > 100 {
+                TapTicFeedback.generate(.medium)
                 self.dismiss(animated: true, completion: nil)
             } else {
                 UIView.animate(withDuration: 0.3, animations: {
@@ -103,6 +129,10 @@ class PhotoDetailViewController: UIViewController {
             initialTouchPoint = nil
         }
     }
+
+    func imageForTransition() -> UIImage? {
+        return imageScrollView.zoomView.image ?? image
+    }
 }
 
 extension PhotoDetailViewController: PhotoDetailViewControllerInput {
@@ -112,7 +142,12 @@ extension PhotoDetailViewController: PhotoDetailViewControllerInput {
 extension PhotoDetailViewController: ImageTransitionProtocol {
     func tranisitionSetup() {
         imageScrollView.isHidden = true
-        title = viewModel?.title.string
+        bar.titleLabel.text = viewModel?.title
+            .string
+            .components(separatedBy: " ")
+            .first
+        descritpionLabel.text = viewModel?.title.string
+        imageScrollView.setImage(with: viewModel?.photoUrl)
     }
 
     func tranisitionCleanup() {

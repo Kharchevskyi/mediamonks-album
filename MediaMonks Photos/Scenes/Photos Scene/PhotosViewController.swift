@@ -55,13 +55,13 @@ class PhotosViewController: UIViewController {
     }
 
     private func setupUI() {
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.barTintColor = UIColor.black.withAlphaComponent(0.8)
+        navigationController?.navigationBar.tintColor = UIColor.monkYellow
+        navigationController?.navigationBar.barTintColor = .monkGray
 
         view.backgroundColor = .black
         view.addSubview(collectionView)
         view.constrainToEdges(collectionView)
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = Constants.Colors.mainColor
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(cellType: AlbumLoadingCollectionViewCell.self)
@@ -77,6 +77,17 @@ class PhotosViewController: UIViewController {
             selector: #selector(handleRotation),
             name: UIDevice.orientationDidChangeNotification,
             object: nil
+        )
+
+        title = "Photos"
+        let textAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.monkYellow,
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)
+        ]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(
+            UIOffset(horizontal: -1000, vertical: 0),
+            for: .default
         )
     }
 
@@ -98,6 +109,7 @@ extension PhotosViewController: PhotosViewControllerInput {
     func handle(state newState: ViewState<MediaMonksPhotoViewModel>) {
         self.state = newState
         DispatchQueue.main.async {
+            self.activityView.endRefreshing()
             self.collectionView.reloadData()
         }
     }
@@ -195,6 +207,15 @@ extension PhotosViewController: MosaicCollectionViewLayoutDelegate {
     }
 }
 
+extension PhotosViewController {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if refreshControl.isRefreshing {
+            output?.handle(action: .retry)
+            activityView.animate()
+        }
+    }
+}
+
 extension PhotosViewController: ImageTransitionProtocol {
 
     func tranisitionSetup() {
@@ -222,10 +243,9 @@ extension PhotosViewController: UIViewControllerTransitioningDelegate {
     }
 
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-
         if let presented = presentedViewController as? PhotoDetailViewController  {
             animator.setupImageTransition(
-                presented.image,
+                presented.imageForTransition(),
                 fromDelegate: presented,
                 toDelegate: self
             )

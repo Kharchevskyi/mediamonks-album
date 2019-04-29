@@ -43,7 +43,7 @@ final class PhotoCell: UICollectionViewCell {
     @discardableResult
     func setup(with viewModel: MediaMonksPhotoViewModel) -> PhotoCell {
         titleLabel.attributedText = viewModel.title
-        imageView.loadImageAsync(with: viewModel.photoUrl)
+        imageView.loadImageAsync(with: viewModel.thumbnailUrl)
         return self
     }
 }
