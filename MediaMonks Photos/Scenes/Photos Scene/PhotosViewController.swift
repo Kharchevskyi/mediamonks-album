@@ -25,6 +25,10 @@ class PhotosViewController: UIViewController {
         static let minimalBlocksInRowCount: Int = 6
     }
 
+    let animator = AnimationController()
+    private var hideSelectedCell = false
+    private var selectedIndex = IndexPath(row: 0, section: 0)
+
     var output: PhotosViewControllerOutput? 
     private var state: ViewState<MediaMonksPhotoViewModel> = .idle
     private let refreshControl: UIRefreshControl = UIRefreshControl()
@@ -71,7 +75,6 @@ class PhotosViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
@@ -99,8 +102,13 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
             guard let viewModel = photos[safe: indexPath.row] else {
                 fatalError("no cell provided")
             }
-            return collectionView.dequeueReusableCell(ofType: PhotoCell.self, at: indexPath)
+            let cell = collectionView.dequeueReusableCell(ofType: PhotoCell.self, at: indexPath)
                 .setup(with: viewModel)
+
+            if selectedIndex == indexPath, hideSelectedCell {
+                cell.alpha = 0
+            }
+            return cell
         case .failed(.retryable(let message)):
             return collectionView.dequeueReusableCell(ofType: RetryCollectionViewCell.self, at: indexPath)
                 .setup(with: message, onTap: { [output] in
@@ -111,6 +119,25 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard case let .loaded(photos) = state else { return }
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell,
+            let viewModel = photos[safe: indexPath.row]
+        else { return }
+
+        let destinationVC = PhotoDetailConfigurator.scene(with: viewModel, image: cell.imageView.image)
+        
+        selectedIndex = indexPath
+        animator.setupImageTransition(
+            cell.imageView.image,
+            fromDelegate: self,
+            toDelegate: destinationVC
+        )
+        destinationVC.image = cell.imageView.image
+        destinationVC.transitioningDelegate = self
+        present(destinationVC, animated: true, completion: nil)
+    }
 }
 
 extension PhotosViewController: MosaicCollectionViewLayoutDelegate {
@@ -152,3 +179,46 @@ extension PhotosViewController: MosaicCollectionViewLayoutDelegate {
         return geometryInfo
     }
 }
+
+extension PhotosViewController: ImageTransitionProtocol {
+
+    func tranisitionSetup() {
+        hideSelectedCell = true
+        collectionView.reloadData()
+    }
+
+    func tranisitionCleanup() {
+        hideSelectedCell = false
+        collectionView.reloadData()
+    }
+
+    func imageFrame() -> CGRect {
+        let attributes = collectionView.layoutAttributesForItem(at: selectedIndex)
+        let cellRect = attributes!.frame
+        let rect = collectionView.convert(cellRect, to: view)
+        return rect
+    }
+}
+
+extension PhotosViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+
+        return animator
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+
+        if let presented = presentedViewController as? PhotoDetailViewController  {
+            animator.setupImageTransition(
+                presented.image,
+                fromDelegate: presented,
+                toDelegate: self
+            )
+        }
+
+        return animator
+    }
+}
+
+
+

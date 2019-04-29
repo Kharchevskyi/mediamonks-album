@@ -50,6 +50,16 @@
 		9FD52ED1226E13BD00EEBA73 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ED0226E13BD00EEBA73 /* Extensions.swift */; };
 		9FD52ED7226F679B00EEBA73 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD52ED6226F679B00EEBA73 /* AlbumCell.swift */; };
 		9FEAEEA822765B3500292747 /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEA722765B3500292747 /* FadeTransition.swift */; };
+		9FEAEEAD2277025A00292747 /* AnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEAC2277025A00292747 /* AnimationController.swift */; };
+		9FEAEEB422774B0C00292747 /* PhotoDetailConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEAE22774B0C00292747 /* PhotoDetailConfigurator.swift */; };
+		9FEAEEB522774B0C00292747 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEAF22774B0C00292747 /* PhotoDetailViewController.swift */; };
+		9FEAEEB722774B0C00292747 /* PhotoDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEB122774B0C00292747 /* PhotoDetailInteractor.swift */; };
+		9FEAEEB822774B0C00292747 /* PhotoDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEB222774B0C00292747 /* PhotoDetailPresenter.swift */; };
+		9FEAEEB922774B0C00292747 /* PhotoDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEB322774B0C00292747 /* PhotoDetailRouter.swift */; };
+		9FEAEEBC2277532A00292747 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEBB2277532A00292747 /* ImageScrollView.swift */; };
+		9FEAEEBE227777D200292747 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEBD227777D200292747 /* Constants.swift */; };
+		9FEAEEC02277783000292747 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEBF2277783000292747 /* UIColor+Ext.swift */; };
+		9FEAEEC222777C2600292747 /* RadialGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */; };
 		F18801CE7DF49E4C40BA2BCE /* Pods_MediaMonks_Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +110,16 @@
 		9FD52ED0226E13BD00EEBA73 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9FD52ED6226F679B00EEBA73 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
 		9FEAEEA722765B3500292747 /* FadeTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
+		9FEAEEAC2277025A00292747 /* AnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationController.swift; sourceTree = "<group>"; };
+		9FEAEEAE22774B0C00292747 /* PhotoDetailConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailConfigurator.swift; sourceTree = "<group>"; };
+		9FEAEEAF22774B0C00292747 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		9FEAEEB122774B0C00292747 /* PhotoDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailInteractor.swift; sourceTree = "<group>"; };
+		9FEAEEB222774B0C00292747 /* PhotoDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailPresenter.swift; sourceTree = "<group>"; };
+		9FEAEEB322774B0C00292747 /* PhotoDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailRouter.swift; sourceTree = "<group>"; };
+		9FEAEEBB2277532A00292747 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		9FEAEEBD227777D200292747 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9FEAEEBF2277783000292747 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientLayer.swift; sourceTree = "<group>"; };
 		B61D64EB0582EAF4C8BFAC11 /* Pods-MediaMonks Photos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaMonks Photos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MediaMonks Photos/Pods-MediaMonks Photos.debug.xcconfig"; sourceTree = "<group>"; };
 		F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaMonks_Photos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -122,6 +142,7 @@
 				9FEAEEAA22765B6E00292747 /* Common */,
 				9FD52ECA226DDA6A00EEBA73 /* Albums Lists Scene */,
 				9F1A9AFD2270FB2D004DD56D /* Photos Scene */,
+				9FEAEEBA22774B1000292747 /* Photo Detail Scene */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -241,6 +262,8 @@
 				9F1A9B1722711C39004DD56D /* UIImageView+Ext.swift */,
 				9F1A9B1922711C58004DD56D /* Collection+Ext.swift */,
 				9F1A9B1B22711C74004DD56D /* ReusableView+Ext.swift */,
+				9FEAEEBF2277783000292747 /* UIColor+Ext.swift */,
+				9FEAEEBD227777D200292747 /* Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -282,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */,
+				9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */,
 			);
 			path = "Common Views";
 			sourceTree = "<group>";
@@ -289,8 +313,9 @@
 		9FEAEEA922765B5200292747 /* Custom Transitions */ = {
 			isa = PBXGroup;
 			children = (
-				9FEAEEA722765B3500292747 /* FadeTransition.swift */,
 				9F1A9B1D22711D04004DD56D /* CustomNavigationControllerDelegate.swift */,
+				9FEAEEA722765B3500292747 /* FadeTransition.swift */,
+				9FEAEEAC2277025A00292747 /* AnimationController.swift */,
 			);
 			path = "Custom Transitions";
 			sourceTree = "<group>";
@@ -299,10 +324,31 @@
 			isa = PBXGroup;
 			children = (
 				9FEAEEA922765B5200292747 /* Custom Transitions */,
+				9FEAEEAB2277024000292747 /* States */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		9FEAEEAB2277024000292747 /* States */ = {
+			isa = PBXGroup;
+			children = (
 				9F1A9AE62270729F004DD56D /* ViewState.swift */,
 				9F1A9AFE2270FE95004DD56D /* State.swift */,
 			);
-			path = Common;
+			path = States;
+			sourceTree = "<group>";
+		};
+		9FEAEEBA22774B1000292747 /* Photo Detail Scene */ = {
+			isa = PBXGroup;
+			children = (
+				9FEAEEAE22774B0C00292747 /* PhotoDetailConfigurator.swift */,
+				9FEAEEAF22774B0C00292747 /* PhotoDetailViewController.swift */,
+				9FEAEEB122774B0C00292747 /* PhotoDetailInteractor.swift */,
+				9FEAEEB222774B0C00292747 /* PhotoDetailPresenter.swift */,
+				9FEAEEB322774B0C00292747 /* PhotoDetailRouter.swift */,
+				9FEAEEBB2277532A00292747 /* ImageScrollView.swift */,
+			);
+			path = "Photo Detail Scene";
 			sourceTree = "<group>";
 		};
 		A54E7B90FB90B494475586A5 /* Frameworks */ = {
@@ -452,6 +498,8 @@
 				9F1A9B0F227103AE004DD56D /* MosaicLayoutAttributes.swift in Sources */,
 				9F1A9B10227103AE004DD56D /* MosaicCollectionViewLayout.swift in Sources */,
 				9FD52EC9226DDA6500EEBA73 /* AlbumsListRouter.swift in Sources */,
+				9FEAEEC222777C2600292747 /* RadialGradientLayer.swift in Sources */,
+				9FEAEEC02277783000292747 /* UIColor+Ext.swift in Sources */,
 				9F1A9B0C227103AE004DD56D /* MosaicCollectionViewLayoutHelper.swift in Sources */,
 				9FD52EB0226D051900EEBA73 /* MediaMonksAPI.swift in Sources */,
 				9FD52EB4226D17E300EEBA73 /* MediaMonksAlbum.swift in Sources */,
@@ -462,9 +510,11 @@
 				9F1A9AFF2270FE95004DD56D /* State.swift in Sources */,
 				9FD52ECF226E0E9400EEBA73 /* CustomRefreshControlView.swift in Sources */,
 				9FD52E91226CF83000EEBA73 /* AppDelegate.swift in Sources */,
+				9FEAEEAD2277025A00292747 /* AnimationController.swift in Sources */,
 				9F1A9AFA2270FB25004DD56D /* PhotosInteractor.swift in Sources */,
 				9F1A9AFC2270FB25004DD56D /* PhotosRouter.swift in Sources */,
 				9FD52ECC226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift in Sources */,
+				9FEAEEB722774B0C00292747 /* PhotoDetailInteractor.swift in Sources */,
 				9F1A9AE9227072CA004DD56D /* RetryCollectionViewCell.swift in Sources */,
 				9FEAEEA822765B3500292747 /* FadeTransition.swift in Sources */,
 				9F1A9B1A22711C58004DD56D /* Collection+Ext.swift in Sources */,
@@ -474,16 +524,22 @@
 				9F1A9B0B227103AE004DD56D /* MosaicCollectionViewLayoutDelegate.swift in Sources */,
 				9FD52ED1226E13BD00EEBA73 /* Extensions.swift in Sources */,
 				9F1A9B0E227103AE004DD56D /* MosaicCollectionViewLayoutCache.swift in Sources */,
+				9FEAEEB922774B0C00292747 /* PhotoDetailRouter.swift in Sources */,
 				9FD52ED7226F679B00EEBA73 /* AlbumCell.swift in Sources */,
 				9F1A9B1E22711D04004DD56D /* CustomNavigationControllerDelegate.swift in Sources */,
 				9F1A9B0D227103AE004DD56D /* MosaicLayoutSectionMatrix.swift in Sources */,
 				9FD52EAE226D050B00EEBA73 /* ApiError.swift in Sources */,
 				9F1A9AE72270729F004DD56D /* ViewState.swift in Sources */,
+				9FEAEEB422774B0C00292747 /* PhotoDetailConfigurator.swift in Sources */,
 				9FD52EB2226D17C400EEBA73 /* FailableDecodable.swift in Sources */,
 				9F1A9B1622711935004DD56D /* ImageCache.swift in Sources */,
+				9FEAEEB522774B0C00292747 /* PhotoDetailViewController.swift in Sources */,
 				9F1A9AF02270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift in Sources */,
 				9F1A9AF72270FB25004DD56D /* PhotosConfigurator.swift in Sources */,
+				9FEAEEB822774B0C00292747 /* PhotoDetailPresenter.swift in Sources */,
 				9F1A9B012271013A004DD56D /* MediaMonksPhotoViewModel.swift in Sources */,
+				9FEAEEBC2277532A00292747 /* ImageScrollView.swift in Sources */,
+				9FEAEEBE227777D200292747 /* Constants.swift in Sources */,
 				9FD52EC4226DDA6500EEBA73 /* AlbumsListConfigurator.swift in Sources */,
 				9FD52EB6226D17FF00EEBA73 /* MediaMonksApiRequest.swift in Sources */,
 			);

@@ -14,7 +14,8 @@ final class CustomNavigationControllerDelegate: NSObject {
         return UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
     }()
     private weak var navigationController: UINavigationController?
-    private let a = FadeTransition()
+    private let animator = FadeTransition()
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         super.init()
@@ -58,7 +59,7 @@ extension CustomNavigationControllerDelegate: UINavigationControllerDelegate {
         to toVC: UIViewController
         ) -> UIViewControllerAnimatedTransitioning? {
 
-        return a
+        return animator
     }
 
     func navigationController(

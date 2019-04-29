@@ -35,7 +35,7 @@ final class AlbumsListViewController: UIViewController {
         collectionViewLayout: collectionViewLayout
     )
     private lazy var activityView = CustomRefreshControl(
-        text: "Media Monks",
+        text: Constants.appName,
         refreshControl: refreshControl
     )
 
@@ -63,9 +63,10 @@ final class AlbumsListViewController: UIViewController {
     private func setupUI() {
         navigationControllerDelegate = CustomNavigationControllerDelegate(navigationController: self.navigationController!)
 
-        view.backgroundColor = .black
+        view.backgroundColor = Constants.Colors.mainColor
 
         collectionView.delegate = self
+        collectionView.backgroundColor = Constants.Colors.mainColor
         collectionView.dataSource = self
         collectionView.register(cellType: AlbumCell.self)
         collectionView.register(cellType: RetryCollectionViewCell.self)
@@ -224,4 +225,4 @@ extension AlbumsListViewController {
         endRefreshing()
         collectionView.reloadData()
     }
-} 
+}

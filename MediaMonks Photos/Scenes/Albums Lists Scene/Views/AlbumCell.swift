@@ -9,6 +9,8 @@
 import UIKit
 
 final class AlbumCell: UICollectionViewCell {
+    private let gradient = RadialGradientLayer()
+
     private let titleLabel = UILabel()
 
     override init(frame: CGRect) {
@@ -22,6 +24,11 @@ final class AlbumCell: UICollectionViewCell {
     }
 
     private func setupUI() {
+        layer.addSublayer(gradient)
+        gradient.colors = [
+            UIColor(red: 87, green: 80, blue: 86).cgColor,
+            UIColor(red: 50, green: 55, blue: 70).cgColor
+        ]
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
         constrainToEdges(
@@ -31,8 +38,7 @@ final class AlbumCell: UICollectionViewCell {
         titleLabel.numberOfLines = 0
         
         layer.borderWidth = 1
-        layer.borderColor = UIColor.white.cgColor
-        backgroundColor = UIColor.darkGray
+        layer.borderColor = UIColor.monkYellow.cgColor
     }
 
     @discardableResult
@@ -45,5 +51,8 @@ final class AlbumCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = bounds.size.width / 2
+        gradient.cornerRadius = bounds.size.width / 2
+        gradient.frame = bounds
     }
 }
+

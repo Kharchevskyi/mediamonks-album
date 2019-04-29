@@ -10,7 +10,7 @@ import UIKit
 
 final class PhotoCell: UICollectionViewCell {
     private let titleLabel = UILabel()
-    private let imageView = UIImageView(frame: .zero)
+    private(set) var imageView = UIImageView(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,13 +37,13 @@ final class PhotoCell: UICollectionViewCell {
             titleLabel.rightAnchor.constraint(equalTo: imageView.rightAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
             titleLabel.topAnchor.constraint(greaterThanOrEqualTo: imageView.topAnchor, constant: 8)
-            ])
+        ])
     }
 
     @discardableResult
     func setup(with viewModel: MediaMonksPhotoViewModel) -> PhotoCell {
         titleLabel.attributedText = viewModel.title
-        imageView.loadImageAsync(with: viewModel.thumbnailUrl)
+        imageView.loadImageAsync(with: viewModel.photoUrl)
         return self
     }
 }
