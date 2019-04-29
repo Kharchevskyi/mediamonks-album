@@ -9,6 +9,10 @@
 import UIKit
 
 final class RadialGradientLayer: CAGradientLayer {
+    override init(layer: Any) {
+        super.init(layer: layer)
+    }
+
     override init() {
         super.init()
         type = .radial

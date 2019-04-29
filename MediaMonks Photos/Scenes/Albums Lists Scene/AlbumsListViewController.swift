@@ -61,7 +61,11 @@ final class AlbumsListViewController: UIViewController {
     }
 
     private func setupUI() {
-        navigationControllerDelegate = CustomNavigationControllerDelegate(navigationController: self.navigationController!)
+        if let navigation = navigationController {
+            navigationControllerDelegate = CustomNavigationControllerDelegate(
+                navigationController: navigation
+            )
+        }
 
         view.backgroundColor = Constants.Colors.mainColor
 
@@ -72,7 +76,7 @@ final class AlbumsListViewController: UIViewController {
         collectionView.register(cellType: RetryCollectionViewCell.self)
         collectionView.register(cellType: AlbumLoadingCollectionViewCell.self)
         view.addSubview(collectionView)
-        view.constrainToEdges(collectionView)
+        collectionView.constraintsToEdges(to: view.safeAreaLayoutGuide)
 
         collectionView.addSubview(refreshControl)
         activityView.textColor = .white
@@ -81,6 +85,14 @@ final class AlbumsListViewController: UIViewController {
 
     @objc private func reload() {
         output?.handle(action: .loadNew)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        flowLayout.invalidateLayout()
     }
 }
 
@@ -142,7 +154,9 @@ extension AlbumsListViewController: UICollectionViewDelegateFlowLayout {
                     - LocalConstants.insets.bottom
             )
         case .loaded:
-            let width = collectionView.frame.size.width / 3
+            let isLandscape = UIDevice.current.orientation.isLandscape
+            let divider: CGFloat = isLandscape ? 5 : 3
+            let width = collectionView.frame.size.width / divider
                 - LocalConstants.insets.left
                 - LocalConstants.insets.right
             return CGSize(

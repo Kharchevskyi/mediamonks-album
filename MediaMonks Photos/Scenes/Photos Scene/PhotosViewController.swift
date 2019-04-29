@@ -71,11 +71,26 @@ class PhotosViewController: UIViewController {
         collectionView.addSubview(refreshControl)
         activityView.textColor = .white
         activityView.font = UIFont.boldSystemFont(ofSize: 16)
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleRotation),
+            name: UIDevice.orientationDidChangeNotification,
+            object: nil
+        )
+    }
+
+    @objc private func handleRotation() {
+        collectionViewLayout.invalidateLayout()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

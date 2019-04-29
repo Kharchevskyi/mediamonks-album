@@ -23,6 +23,8 @@ protocol PhotoDetailViewControllerOutput {
 class PhotoDetailViewController: UIViewController {
     var output: PhotoDetailViewControllerOutput?
     private lazy var imageScrollView = ImageScrollView(frame: self.view.bounds)
+    private let bar = UIView()
+
     var image: UIImage?
     var viewModel: MediaMonksPhotoViewModel?
 
@@ -40,12 +42,13 @@ class PhotoDetailViewController: UIViewController {
         guard let image = image else { return }
         imageScrollView.display(image)
 
-        let bar = UIView()
+
         bar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bar)
-        bar.backgroundColor = .black
+        bar.backgroundColor = .white
         bar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         let guide = view.safeAreaLayoutGuide
+
         NSLayoutConstraint.activate([
             bar.leftAnchor.constraint(equalTo: guide.leftAnchor),
             bar.rightAnchor.constraint(equalTo: guide.rightAnchor),
@@ -58,6 +61,16 @@ class PhotoDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        imageScrollView.frame = CGRect(
+            x: 0,
+            y: bar.frame.size.height,
+            width: view.frame.size.width,
+            height: view.frame.size.height - bar.frame.size.height
+        )
+        imageScrollView.centerImage()
+    }
 }
 
 extension PhotoDetailViewController: PhotoDetailViewControllerInput {

@@ -12,6 +12,7 @@ import UIKit
 
 extension UIView {
     func constraintsToEdges(to guide: UILayoutGuide) {
+        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             trailingAnchor.constraint(equalTo: guide.trailingAnchor),

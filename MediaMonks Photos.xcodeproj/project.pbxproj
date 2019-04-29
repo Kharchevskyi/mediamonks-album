@@ -304,6 +304,7 @@
 		9FD52ED2226E507E00EEBA73 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FEAEEBB2277532A00292747 /* ImageScrollView.swift */,
 				9FD52ECE226E0E9400EEBA73 /* CustomRefreshControlView.swift */,
 				9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */,
 			);
@@ -346,7 +347,6 @@
 				9FEAEEB122774B0C00292747 /* PhotoDetailInteractor.swift */,
 				9FEAEEB222774B0C00292747 /* PhotoDetailPresenter.swift */,
 				9FEAEEB322774B0C00292747 /* PhotoDetailRouter.swift */,
-				9FEAEEBB2277532A00292747 /* ImageScrollView.swift */,
 			);
 			path = "Photo Detail Scene";
 			sourceTree = "<group>";
