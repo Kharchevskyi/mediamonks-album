@@ -20,17 +20,16 @@ Run `MediaMonks Photos.xcworkspace`.
 - Custom loaders for failed and loading states.   
 - Try to tap on "Monk" image to retry.  
 - Custom pull to refresh.  
-- Custom interactive fade transition.
+- Custom interactive fade transition.  
 ![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/3.jpeg)
   
 **Photos List** 
+
 - Mosaic flow layout.
 - All images are saved to cache.
 - Tap on photo will show you photo detail with custom animation transition.
-- Tap on right bar button will show you random image. (Added just to show filters on photo detail).    
-  
-![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/2.jpeg)
-  
+- Tap on right bar button will show you random image. (Added just to show filters on photo detail).  
+![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/2.jpeg)  
 **Photo Detail**
 - Added "Edit" feature to apply different filters to image.
 - Pan gesture for dismissing.
