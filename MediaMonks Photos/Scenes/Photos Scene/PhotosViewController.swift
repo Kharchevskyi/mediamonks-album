@@ -43,6 +43,7 @@ class PhotosViewController: UIViewController {
         text: "Photos",
         refreshControl: refreshControl
     )
+    private var disposable: Disposable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,7 +131,7 @@ extension PhotosViewController {
 
         guard let url = URL(string: "https://picsum.photos/300/300") else { return }
 
-        URLSession.shared
+        disposable = URLSession.shared
             .reactive
             .data(with: URLRequest(url: url))
             .observe(on: UIScheduler())
@@ -232,6 +233,7 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         destinationVC.image = image
         destinationVC.transitioningDelegate = self
         if presentedViewController == nil {
+            disposable?.dispose()
             present(destinationVC, animated: true, completion: nil)
         }
     }
