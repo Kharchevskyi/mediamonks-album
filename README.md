@@ -1,4 +1,5 @@
 ## MediaMonks Albums
+![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/4.jpeg)
 
 MediaMonks test project.   
 Album list using https://jsonplaceholder.typicode.com. 
@@ -20,18 +21,22 @@ Run `MediaMonks Photos.xcworkspace`.
 - Try to tap on "Monk" image to retry.  
 - Custom pull to refresh.  
 - Custom interactive fade transition.
-
+![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/3.jpeg)
+  
 **Photos List** 
 - Mosaic flow layout.
 - All images are saved to cache.
 - Tap on photo will show you photo detail with custom animation transition.
-- Tap on right bar button will show you random image. (Added just to show filters on photo detail).
+- Tap on right bar button will show you random image. (Added just to show filters on photo detail).    
+  
+![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/2.jpeg)
   
 **Photo Detail**
 - Added "Edit" feature to apply different filters to image.
 - Pan gesture for dismissing.
 - Pinch to zoom in/zoom out.
-- Double tap to zoom in/zoom out.
+- Double tap to zoom in/zoom out.  
+![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/1.jpeg)
   
 ## App architecture
 As architecture I've used Swift Clean Architecture (VIP).  
