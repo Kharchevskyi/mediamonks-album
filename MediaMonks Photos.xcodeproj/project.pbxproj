@@ -62,6 +62,9 @@
 		9FEAEEC222777C2600292747 /* RadialGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */; };
 		9FEAEEC622778EE300292747 /* PhotoDetailBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEC522778EE300292747 /* PhotoDetailBar.swift */; };
 		9FEAEEC9227794E600292747 /* InsetsTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEEC8227794E600292747 /* InsetsTextLabel.swift */; };
+		9FEAEECB2277A69E00292747 /* PhotoFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEECA2277A69E00292747 /* PhotoFilterBar.swift */; };
+		9FEAEECE2277ACCA00292747 /* PhotoFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEECD2277ACCA00292747 /* PhotoFilter.swift */; };
+		9FEAEED02277BD9A00292747 /* PanDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEAEECF2277BD9A00292747 /* PanDirection.swift */; };
 		F18801CE7DF49E4C40BA2BCE /* Pods_MediaMonks_Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +127,9 @@
 		9FEAEEC122777C2600292747 /* RadialGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientLayer.swift; sourceTree = "<group>"; };
 		9FEAEEC522778EE300292747 /* PhotoDetailBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailBar.swift; sourceTree = "<group>"; };
 		9FEAEEC8227794E600292747 /* InsetsTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetsTextLabel.swift; sourceTree = "<group>"; };
+		9FEAEECA2277A69E00292747 /* PhotoFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFilterBar.swift; sourceTree = "<group>"; };
+		9FEAEECD2277ACCA00292747 /* PhotoFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFilter.swift; sourceTree = "<group>"; };
+		9FEAEECF2277BD9A00292747 /* PanDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanDirection.swift; sourceTree = "<group>"; };
 		B61D64EB0582EAF4C8BFAC11 /* Pods-MediaMonks Photos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaMonks Photos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MediaMonks Photos/Pods-MediaMonks Photos.debug.xcconfig"; sourceTree = "<group>"; };
 		F4CDFB109B3A2AF403DAA18D /* Pods_MediaMonks_Photos.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MediaMonks_Photos.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -268,6 +274,7 @@
 				9F1A9B1B22711C74004DD56D /* ReusableView+Ext.swift */,
 				9FEAEEBF2277783000292747 /* UIColor+Ext.swift */,
 				9FEAEEBD227777D200292747 /* Constants.swift */,
+				9FEAEECF2277BD9A00292747 /* PanDirection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -329,6 +336,7 @@
 		9FEAEEAA22765B6E00292747 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9FEAEECC2277ACB300292747 /* Filter */,
 				9FEAEEA922765B5200292747 /* Custom Transitions */,
 				9FEAEEAB2277024000292747 /* States */,
 			);
@@ -363,6 +371,15 @@
 				9FEAEEC522778EE300292747 /* PhotoDetailBar.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9FEAEECC2277ACB300292747 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				9FEAEECA2277A69E00292747 /* PhotoFilterBar.swift */,
+				9FEAEECD2277ACCA00292747 /* PhotoFilter.swift */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		A54E7B90FB90B494475586A5 /* Frameworks */ = {
@@ -517,6 +534,7 @@
 				9F1A9B0C227103AE004DD56D /* MosaicCollectionViewLayoutHelper.swift in Sources */,
 				9FD52EB0226D051900EEBA73 /* MediaMonksAPI.swift in Sources */,
 				9FD52EB4226D17E300EEBA73 /* MediaMonksAlbum.swift in Sources */,
+				9FEAEECB2277A69E00292747 /* PhotoFilterBar.swift in Sources */,
 				9F1A9AFB2270FB25004DD56D /* PhotosPresenter.swift in Sources */,
 				9FD52EB8226D198A00EEBA73 /* MediaMonksPhoto.swift in Sources */,
 				9FD52EC5226DDA6500EEBA73 /* AlbumsListViewController.swift in Sources */,
@@ -527,6 +545,7 @@
 				9FEAEEAD2277025A00292747 /* AnimationController.swift in Sources */,
 				9F1A9AFA2270FB25004DD56D /* PhotosInteractor.swift in Sources */,
 				9F1A9AFC2270FB25004DD56D /* PhotosRouter.swift in Sources */,
+				9FEAEECE2277ACCA00292747 /* PhotoFilter.swift in Sources */,
 				9FD52ECC226E046E00EEBA73 /* MediaMonksAlbumViewModel.swift in Sources */,
 				9FEAEEB722774B0C00292747 /* PhotoDetailInteractor.swift in Sources */,
 				9F1A9AE9227072CA004DD56D /* RetryCollectionViewCell.swift in Sources */,
@@ -548,6 +567,7 @@
 				9FEAEEB422774B0C00292747 /* PhotoDetailConfigurator.swift in Sources */,
 				9FD52EB2226D17C400EEBA73 /* FailableDecodable.swift in Sources */,
 				9F1A9B1622711935004DD56D /* ImageCache.swift in Sources */,
+				9FEAEED02277BD9A00292747 /* PanDirection.swift in Sources */,
 				9FEAEEB522774B0C00292747 /* PhotoDetailViewController.swift in Sources */,
 				9F1A9AF02270EE95004DD56D /* AlbumLoadingCollectionViewCell.swift in Sources */,
 				9F1A9AF72270FB25004DD56D /* PhotosConfigurator.swift in Sources */,

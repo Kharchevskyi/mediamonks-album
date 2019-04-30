@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ReactiveSwift
+import ReactiveCocoa
 
 // MARK: - Protocols
 
@@ -20,16 +22,24 @@ protocol PhotoDetailViewControllerOutput {
 
 // MARK: - Implementation
 
-class PhotoDetailViewController: UIViewController {
+class PhotoDetailViewController: UIViewController, PhotoDetailViewControllerInput {
+    private enum LocalConstants {
+        static let filterHeight: CGFloat = 100
+    }
+
     var output: PhotoDetailViewControllerOutput?
     private lazy var imageScrollView = ImageScrollView(frame: self.view.bounds)
     private let bar = PhotoDetailBar()
     private var initialTouchPoint: CGPoint?
     private var initialCenter: CGPoint?
     private let descritpionLabel = InsetsTextLabel()
+    private let filterBar = PhotoFilterBar()
+    private var filterHeightConstraint = NSLayoutConstraint()
 
     var image: UIImage?
     var viewModel: MediaMonksPhotoViewModel?
+    var shouldUploadOriginal = true
+    private var filters: [PhotoFilterBarViewModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +62,10 @@ class PhotoDetailViewController: UIViewController {
         view.addSubview(bar)
 
         bar.backgroundColor = .monkGray
+        bar.onTapAction { [weak self] in
+            self?.toggleFilters()
+        }
+
         bar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         let guide = view.safeAreaLayoutGuide
 
@@ -66,9 +80,14 @@ class PhotoDetailViewController: UIViewController {
         descritpionLabel.textColor = .monkYellow
         view.addSubview(descritpionLabel)
         descritpionLabel.backgroundColor = .monkGray
-        descritpionLabel.textInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+
+        filterBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(filterBar)
+        filterBar.backgroundColor = .monkYellow
 
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        filterHeightConstraint = filterBar.heightAnchor.constraint(equalToConstant: 0)
+
         NSLayoutConstraint.activate([
             imageScrollView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
             imageScrollView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
@@ -85,7 +104,11 @@ class PhotoDetailViewController: UIViewController {
             descriptionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             descriptionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             descriptionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            descriptionView.heightAnchor.constraint(equalToConstant: 40)
+            descriptionView.heightAnchor.constraint(equalToConstant: 40),
+            filterHeightConstraint,
+            filterBar.leftAnchor.constraint(equalTo: view.leftAnchor),
+            filterBar.rightAnchor.constraint(equalTo: view.rightAnchor),
+            filterBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
 
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
@@ -135,7 +158,68 @@ class PhotoDetailViewController: UIViewController {
     }
 }
 
-extension PhotoDetailViewController: PhotoDetailViewControllerInput {
+extension PhotoDetailViewController {
+    func simpleBlurFilterExample(inputImage: UIImage) -> UIImage {
+        // convert UIImage to CIImage
+        let inputCIImage = CIImage(image: inputImage)!
+
+        // Create Blur CIFilter, and set the input image
+        let blurFilter = CIFilter(name: "CIGaussianBlur")!
+        blurFilter.setValue(inputCIImage, forKey: kCIInputImageKey)
+        blurFilter.setValue(8, forKey: kCIInputRadiusKey)
+
+        // Get the filtered output image and return it
+        let outputImage = blurFilter.outputImage!
+        return UIImage(ciImage: outputImage)
+    }
+
+    @objc private func toggleFilters() {
+        if filterHeightConstraint.constant == 0 {
+            filterHeightConstraint.constant = LocalConstants.filterHeight
+            showFilters()
+        } else {
+            filterHeightConstraint.constant = 0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { _ in
+
+            })
+        }
+    }
+
+    private func showFilters() {
+        guard filters.isEmpty else {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            return
+        }
+
+        applyFilters()
+    }
+
+    private func applyFilters() {
+        guard let image = imageScrollView.zoomView.image else { return }
+        PhotoFilter.allFilteredImages(with: image)
+            .observe(on: UIScheduler())
+            .take(duringLifetimeOf: self)
+            .on { [weak self] filters in
+                guard let self = self else { return }
+
+                self.filters = filters.map {
+                    PhotoFilterBarViewModel.init(image: $0.0, title: $0.1.title)
+                }
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.view.layoutIfNeeded()
+                }, completion: { _ in
+                    self.filterBar.setup(with: self.filters) { [weak self] index in
+                        guard let image = self?.filters[safe: index]?.image else { return }
+                        self?.imageScrollView.display(image)
+                    }
+                })
+            }
+            .start()
+    }
 
 }
 
@@ -147,7 +231,11 @@ extension PhotoDetailViewController: ImageTransitionProtocol {
             .components(separatedBy: " ")
             .first
         descritpionLabel.text = viewModel?.title.string
-        imageScrollView.setImage(with: viewModel?.photoUrl)
+
+        if shouldUploadOriginal {
+            imageScrollView.setImage(with: viewModel?.photoUrl)
+        }
+        applyFilters()
     }
 
     func tranisitionCleanup() {
@@ -162,24 +250,3 @@ extension PhotoDetailViewController: ImageTransitionProtocol {
     }
 }
 
-enum PanDirection: Equatable {
-    case up, down, left, right
-    public var isVertical: Bool { return [.up, .down].contains(self) }
-    public var isHorizontal: Bool { return !isVertical }
-}
-
-extension UIPanGestureRecognizer {
-    var direction: PanDirection? {
-        let velocity = self.velocity(in: view)
-        let isVertical = abs(velocity.y) > abs(velocity.x)
-        switch (isVertical, velocity.x, velocity.y) {
-        case (true, _, let y) where y < 0: return .up
-        case (true, _, let y) where y > 0: return .down
-        case (false, let x, _) where x > 0: return .right
-        case (false, let x, _) where x < 0: return .left
-        default: return nil
-        }
-
-    }
-
-}

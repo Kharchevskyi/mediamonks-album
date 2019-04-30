@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ReactiveSwift
+import ReactiveCocoa
 
 // MARK: - Protocols
 
@@ -27,7 +29,7 @@ class PhotosViewController: UIViewController {
 
     let animator = AnimationController()
     private var hideSelectedCell = false
-    private var selectedIndex = IndexPath(row: 0, section: 0)
+    private var selectedIndex: IndexPath?
 
     var output: PhotosViewControllerOutput? 
     private var state: ViewState<MediaMonksPhotoViewModel> = .idle
@@ -69,7 +71,6 @@ class PhotosViewController: UIViewController {
         collectionView.register(cellType: PhotoCell.self)
 
         collectionView.addSubview(refreshControl)
-        activityView.textColor = .white
         activityView.font = UIFont.boldSystemFont(ofSize: 16)
 
         NotificationCenter.default.addObserver(
@@ -91,17 +92,83 @@ class PhotosViewController: UIViewController {
         )
     }
 
-    @objc private func handleRotation() {
-        collectionViewLayout.invalidateLayout()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+        setRightBarButtonItem()
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc private func handleRotation() {
+        collectionViewLayout.invalidateLayout()
+    }
+}
+
+extension PhotosViewController {
+    private func setRightBarButtonItem() {
+        let image = #imageLiteral(resourceName: "monk_icon").resizedImage(CGSize(width: 40, height: 40))
+
+        let barButton = UIBarButtonItem(
+            image: image,
+            style: .done,
+            target: self,
+            action: #selector(handleRightTap)
+        )
+        navigationItem.setRightBarButton(barButton, animated: true)
+    }
+
+    @objc private func handleRightTap() {
+        let indicator = UIActivityIndicatorView(style: .white)
+        indicator.startAnimating()
+        indicator.tintColor = .random
+
+        let barButton = UIBarButtonItem(customView: indicator)
+        navigationItem.setRightBarButton(barButton, animated: true)
+
+        guard let url = URL(string: "https://picsum.photos/300/300") else { return }
+
+        URLSession.shared
+            .reactive
+            .data(with: URLRequest(url: url))
+            .observe(on: UIScheduler())
+            .take(duringLifetimeOf: self)
+            .on(failed: { [weak self] _ in
+                self?.setRightBarButtonItem()
+            }, value: { [weak self] data, _ in
+                self?.handleUploadedImage(data: data, url: url.absoluteString)
+            })
+            .start()
+    }
+
+    private func handleUploadedImage(data: Data, url: String) {
+        guard let downloadedImage = UIImage(data: data), presentedViewController == nil else { return }
+
+        let model = MediaMonksPhotoViewModel(
+            photoId: Int.random(in: (0...100)),
+            title: NSAttributedString(string: "Random Image"),
+            photoUrl: url,
+            thumbnailUrl: url
+        )
+
+        let destinationVC = PhotoDetailConfigurator.scene(
+            with: model,
+            image: downloadedImage
+        )
+        destinationVC.shouldUploadOriginal = false
+
+        selectedIndex = nil
+
+        animator.setupImageTransition(
+            downloadedImage,
+            fromDelegate: self,
+            toDelegate: destinationVC
+        )
+        destinationVC.image = downloadedImage
+        destinationVC.transitioningDelegate = self
+        present(destinationVC, animated: true, completion: nil)
     }
 }
 
@@ -163,7 +230,9 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         )
         destinationVC.image = cell.imageView.image
         destinationVC.transitioningDelegate = self
-        present(destinationVC, animated: true, completion: nil)
+        if presentedViewController == nil {
+            present(destinationVC, animated: true, completion: nil)
+        }
     }
 }
 
@@ -229,6 +298,14 @@ extension PhotosViewController: ImageTransitionProtocol {
     }
 
     func imageFrame() -> CGRect {
+        guard let selectedIndex = selectedIndex else {
+            return CGRect(
+                x: view.frame.midX - 50,
+                y: view.frame.midY - 50,
+                width: 100,
+                height: 100
+            )
+        }
         let attributes = collectionView.layoutAttributesForItem(at: selectedIndex)
         let cellRect = attributes!.frame
         let rect = collectionView.convert(cellRect, to: view)

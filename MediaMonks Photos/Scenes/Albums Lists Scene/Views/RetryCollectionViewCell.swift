@@ -91,19 +91,19 @@ class RetryCollectionViewCell: UICollectionViewCell {
     func startAnimation() {
         UIView.animate(
             withDuration: 1.5,
-            delay: 0.1,
-            options: UIView.AnimationOptions.allowUserInteraction,
+            delay: 0,
+            options: [.repeat, .allowUserInteraction],
             animations: {
                 self.retryImageView.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
-        }, completion: { _ in
-            UIView.animate(
-                withDuration: 1.5,
-                animations: {
-                    self.retryImageView.transform = .identity
             }, completion: { _ in
-                self.startAnimation()
+                UIView.animate(
+                    withDuration: 1.5,
+                    animations: {
+                        self.retryImageView.transform = .identity
+                    }, completion: { _ in
+                        self.startAnimation()
+                })
             })
-        })
     }
 }
 

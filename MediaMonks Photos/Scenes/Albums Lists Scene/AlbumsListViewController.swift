@@ -79,7 +79,6 @@ final class AlbumsListViewController: UIViewController {
         collectionView.constraintsToEdges(to: view.safeAreaLayoutGuide)
 
         collectionView.addSubview(refreshControl)
-        activityView.textColor = .white
         activityView.font = UIFont.boldSystemFont(ofSize: 16)
     }
 

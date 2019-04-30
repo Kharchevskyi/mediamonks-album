@@ -9,7 +9,7 @@
 import UIKit
 
 final class CustomRefreshControl {
-    var textColor: UIColor? {
+    var textColor: UIColor? = .monkYellow {
         didSet {
             labels.forEach { $0.textColor = textColor }
         }
@@ -36,6 +36,7 @@ final class CustomRefreshControl {
             label.text = String(character)
             label.font = UIFont.boldSystemFont(ofSize: 25)
             label.adjustsFontSizeToFitWidth = true
+            label.textColor = textColor
             return label
         }
         labels = arrangedViews
@@ -119,11 +120,11 @@ final class CustomRefreshControl {
                     }, completion: { _ in
                         self.currentLabelIndex += 1
 
-                        if self.currentLabelIndex < self.labels.count {
-                            self.animate()
-                        } else {
+//                        if self.currentLabelIndex < self.labels.count, self.isAnimating {
+//                            self.animate()
+//                        } else {
                             self.animateNextStep()
-                        }
+//                        }
                     })
                 })
     }
