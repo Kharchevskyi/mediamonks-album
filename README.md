@@ -12,8 +12,28 @@ git clone https://github.com/Kharchevskyi/mediamonks-album.git
 
 Run `MediaMonks Photos.xcworkspace`.  
   
-Please run on a device to avoid problems with CIFilters on simulators.  
+**Please run on a device to avoid problems with CIFilters on simulators.**  
+ 
+## Scenes  
+**Albums List**  
+- Custom loaders for failed and loading states.   
+- Try to tap on "Monk" image to retry.  
+- Custom pull to refresh.  
+- Custom interactive fade transition.
 
+**Photos List** 
+- Mosaic flow layout.
+- All images are saved to cache.
+- Tap on photo will show you photo detail with custom animation transition.
+- Tap on right bar button will show you random image. (Added just to show filters on photo detail).
+  
+**Photo Detail**
+- Added "Edit" feature to apply different filters to image.
+- Pan gesture for dismissing.
+- Pinch to zoom in/zoom out.
+- Double tap to zoom in/zoom out.
+  
+## App architecture
 As architecture I've used Swift Clean Architecture (VIP).  
 A unidirectional architecture.  
  
@@ -22,23 +42,9 @@ https://hackernoon.com/introducing-clean-swift-architecture-vip-770a639ad7bf
 https://clean-swift.com  
   
 - Used **States** with generics parameters to handle views based on different states.  
-  *Try to load albums with slow internet connection and without internet to take a look on state handlings and "nice animations").*  
+  *Try to load albums with slow internet connection and without internet to take a look on state handlings and "nice animations").* 
   
-Also added custom interactive transitions between controllers.  
-- Interactive fade transition
-- Custom transition between photos list and photo detail. Also added pan transition for dismissing photo)
-  
-Albums Scene:  
-- Added custom pull to refresh.
-- Try to load with pure internet connection or without it.  
-- Try to tap on "Monk" image to retry.
-
-Photos Scene: 
-- Added mosaic flow layout.
-- Load and then caching images.
-- Tap on phot - shows you photo detail.
-- pull to refresh 
-  
-  
-ReactiveSwift.   
-ReactiveCocoa.   
+*3-d party libraries*
+``` 
+https://github.com/ReactiveCocoa/ReactiveSwift/#readme
+```
