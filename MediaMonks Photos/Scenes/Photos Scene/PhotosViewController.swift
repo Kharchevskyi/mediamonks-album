@@ -300,10 +300,10 @@ extension PhotosViewController: ImageTransitionProtocol {
     func imageFrame() -> CGRect {
         guard let selectedIndex = selectedIndex else {
             return CGRect(
-                x: view.frame.midX - 50,
-                y: view.frame.midY - 50,
-                width: 100,
-                height: 100
+                x: view.frame.midX,
+                y: view.frame.midY,
+                width: 0,
+                height: 0
             )
         }
         let attributes = collectionView.layoutAttributesForItem(at: selectedIndex)

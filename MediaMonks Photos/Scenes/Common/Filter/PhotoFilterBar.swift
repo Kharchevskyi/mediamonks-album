@@ -23,6 +23,7 @@ final class PhotoFilterBar: UIView {
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
@@ -50,8 +51,6 @@ final class PhotoFilterBar: UIView {
     private func setupUI() {
         addSubview(collectionView)
         constrainToEdges(collectionView)
-
-        collectionView.reloadData()
         collectionView.register(cellType: FilterCell.self)
     }
 }
@@ -74,60 +73,8 @@ extension PhotoFilterBar: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
         return CGSize(
-            width: collectionView.frame.size.height,
-            height: collectionView.frame.size.height
+            width: 80,
+            height: 80
         )
-    }
-}
-
-
-final class FilterCell: UICollectionViewCell {
-    private let titleLabel = UILabel()
-    private(set) var imageView = UIImageView(frame: .zero)
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupUI()
-    }
-
-    private func setupUI() {
-        addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        titleLabel.numberOfLines = 1
-        imageView.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = .monkYellow
-
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leftAnchor.constraint(equalTo: leftAnchor),
-            imageView.rightAnchor.constraint(equalTo: rightAnchor),
-            imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor),
-            titleLabel.leftAnchor.constraint(equalTo: leftAnchor),
-            titleLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 20)
-        ])
-    }
-
-    @discardableResult
-    func setup(with filter: PhotoFilterBarViewModel) -> FilterCell {
-        titleLabel.text = filter.title
-        imageView.image = filter.image
-        backgroundColor = .monkYellow
-        return self
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
     }
 }

@@ -159,20 +159,6 @@ class PhotoDetailViewController: UIViewController, PhotoDetailViewControllerInpu
 }
 
 extension PhotoDetailViewController {
-    func simpleBlurFilterExample(inputImage: UIImage) -> UIImage {
-        // convert UIImage to CIImage
-        let inputCIImage = CIImage(image: inputImage)!
-
-        // Create Blur CIFilter, and set the input image
-        let blurFilter = CIFilter(name: "CIGaussianBlur")!
-        blurFilter.setValue(inputCIImage, forKey: kCIInputImageKey)
-        blurFilter.setValue(8, forKey: kCIInputRadiusKey)
-
-        // Get the filtered output image and return it
-        let outputImage = blurFilter.outputImage!
-        return UIImage(ciImage: outputImage)
-    }
-
     @objc private func toggleFilters() {
         if filterHeightConstraint.constant == 0 {
             filterHeightConstraint.constant = LocalConstants.filterHeight
@@ -214,7 +200,7 @@ extension PhotoDetailViewController {
                 }, completion: { _ in
                     self.filterBar.setup(with: self.filters) { [weak self] index in
                         guard let image = self?.filters[safe: index]?.image else { return }
-                        self?.imageScrollView.display(image)
+                        self?.imageScrollView.zoomView.image = image
                     }
                 })
             }

@@ -40,13 +40,12 @@ final class PhotoDetailBar: UIView {
             dismisButton.topAnchor.constraint(equalTo: topAnchor, constant: statusBarHeight+8),
             dismisButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             dismisButton.widthAnchor.constraint(equalToConstant: buttonWidth),
-            titleLabel.leftAnchor.constraint(equalTo: dismisButton.rightAnchor, constant: 8),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: statusBarHeight+8),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            titleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -buttonWidth-8-8),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
+            titleLabel.centerYAnchor.constraint(equalTo: dismisButton.centerYAnchor, constant: 0),
             actionButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -8),
             actionButton.topAnchor.constraint(equalTo: dismisButton.topAnchor),
-            actionButton.bottomAnchor.constraint(equalTo: dismisButton.bottomAnchor)
+            actionButton.bottomAnchor.constraint(equalTo: dismisButton.bottomAnchor),
+            actionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 60)
         ])
 
         titleLabel.textColor = .monkYellow

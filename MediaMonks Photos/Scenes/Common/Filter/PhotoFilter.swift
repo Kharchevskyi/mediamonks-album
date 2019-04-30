@@ -12,13 +12,16 @@ import ReactiveSwift
 import Result
 
 enum PhotoFilter: CaseIterable {
-    case original, simple, halftone
+    case original, simple, halftone, sepia, bump, unsharp
 
     var title: String {
         switch self {
         case .original: return "Original"
-        case .simple: return "Simple blur"
+        case .simple: return "Blur"
         case .halftone: return "Halftone"
+        case .sepia: return "Sepia"
+        case .bump: return "Bump"
+        case .unsharp: return "Unsharp"
         }
     }
 
@@ -32,6 +35,9 @@ enum PhotoFilter: CaseIterable {
                     case .original: value = image
                     case .simple:   value = self.simpleBlurFilter(inputImage: image)
                     case .halftone: value = self.halphtoneFilter(inputImage: image)
+                    case .sepia:    value = self.sepiaFilter(inputImage: image)
+                    case .bump:     value = self.bumpFilter(inputImage: image)
+                    case .unsharp:  value = self.unsharpFilter(inputImage: image)
                     }
 
                     observer.send(value: (value, self))
@@ -50,6 +56,40 @@ enum PhotoFilter: CaseIterable {
 }
 
 extension PhotoFilter {
+    private func unsharpFilter(inputImage: UIImage) -> UIImage {
+        guard let inputCIImage = CIImage(image: inputImage) else { return inputImage }
+
+        let filter = CIFilter(name: "CIVignette")!
+        filter.setValue(inputCIImage, forKey: kCIInputImageKey)
+        filter.setValue(5, forKey: kCIInputIntensityKey)
+
+        guard let outputImage = filter.outputImage else { return inputImage }
+
+        return UIImage(ciImage: outputImage)
+    }
+
+    private func bumpFilter(inputImage: UIImage) -> UIImage {
+        guard let inputCIImage = CIImage(image: inputImage) else { return inputImage }
+
+        let filter = CIFilter(name: "CITwirlDistortion")!
+        filter.setValue(inputCIImage, forKey: kCIInputImageKey)
+
+        guard let outputImage = filter.outputImage else { return inputImage }
+        let croppedImage = outputImage.cropped(to: inputCIImage.extent)
+
+        return UIImage(ciImage: croppedImage)
+    }
+
+    private func sepiaFilter(inputImage: UIImage) -> UIImage {
+        guard let inputCIImage = CIImage(image: inputImage) else { return inputImage }
+
+        let filter = CIFilter(name: "CISepiaTone")!
+        filter.setValue(inputCIImage, forKey: kCIInputImageKey)
+
+        guard let outputImage = filter.outputImage else { return inputImage }
+        return UIImage(ciImage: outputImage)
+    }
+
     private func halphtoneFilter(inputImage: UIImage) -> UIImage {
         guard let inputCIImage = CIImage(image: inputImage) else { return inputImage }
 
@@ -68,6 +108,8 @@ extension PhotoFilter {
         blurFilter.setValue(8, forKey: kCIInputRadiusKey)
 
         guard let outputImage = blurFilter.outputImage else { return inputImage }
-        return UIImage(ciImage: outputImage)
+        let croppedImage = outputImage.cropped(to: inputCIImage.extent)
+
+        return UIImage(ciImage: croppedImage)
     }
 }

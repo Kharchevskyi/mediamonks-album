@@ -87,7 +87,7 @@ extension ImageScrollView {
         }
 
 
-        maximumZoomScale = maxScale
+        maximumZoomScale = max(maxScale, 5)
         minimumZoomScale = minScale
     }
 
