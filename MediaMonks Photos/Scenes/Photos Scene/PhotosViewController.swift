@@ -217,18 +217,19 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard case let .loaded(photos) = state else { return }
         
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell,
-            let viewModel = photos[safe: indexPath.row]
+            let viewModel = photos[safe: indexPath.row],
+            let image = cell.imageView.image
         else { return }
 
-        let destinationVC = PhotoDetailConfigurator.scene(with: viewModel, image: cell.imageView.image)
+        let destinationVC = PhotoDetailConfigurator.scene(with: viewModel, image: image)
         
         selectedIndex = indexPath
         animator.setupImageTransition(
-            cell.imageView.image,
+            image,
             fromDelegate: self,
             toDelegate: destinationVC
         )
-        destinationVC.image = cell.imageView.image
+        destinationVC.image = image
         destinationVC.transitioningDelegate = self
         if presentedViewController == nil {
             present(destinationVC, animated: true, completion: nil)

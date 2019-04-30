@@ -39,8 +39,6 @@ final class AlbumsListViewController: UIViewController {
         refreshControl: refreshControl
     )
 
-    private var navigationControllerDelegate: CustomNavigationControllerDelegate?
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,12 +59,6 @@ final class AlbumsListViewController: UIViewController {
     }
 
     private func setupUI() {
-        if let navigation = navigationController {
-            navigationControllerDelegate = CustomNavigationControllerDelegate(
-                navigationController: navigation
-            )
-        }
-
         view.backgroundColor = Constants.Colors.mainColor
 
         collectionView.delegate = self
