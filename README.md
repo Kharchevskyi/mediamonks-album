@@ -20,7 +20,6 @@ Run `MediaMonks Photos.xcworkspace`.
 - Custom loaders for failed and loading states.   
 - Try to tap on "Monk" image to retry.  
 - Custom pull to refresh.  
-- Custom interactive fade transition.  
 ![alt text](https://github.com/Kharchevskyi/mediamonks-album/blob/develop/Screenshots/3.jpeg)
   
 **Photos List** 
@@ -46,7 +45,8 @@ https://hackernoon.com/introducing-clean-swift-architecture-vip-770a639ad7bf
 https://clean-swift.com  
   
 - Used **States** with generics parameters to handle views based on different states.  
-  *Try to load albums with slow internet connection and without internet to take a look on state handlings and "nice animations").* 
+  *Try to load albums with slow 
+  net connection and without internet to take a look on state handlings and "nice animations").* 
   
 *3-d party libraries*
 ``` 
