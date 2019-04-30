@@ -83,28 +83,8 @@ class RetryCollectionViewCell: UICollectionViewCell {
         retryLabel.numberOfLines = 0
         retryLabel.attributedText = title
 
-        startAnimation()
-
         return self
-    }
-
-    func startAnimation() {
-        UIView.animate(
-            withDuration: 1.5,
-            delay: 0,
-            options: [.repeat, .allowUserInteraction],
-            animations: {
-                self.retryImageView.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
-            }, completion: { _ in
-                UIView.animate(
-                    withDuration: 1.5,
-                    animations: {
-                        self.retryImageView.transform = .identity
-                    }, completion: { _ in
-                        self.startAnimation()
-                })
-            })
-    }
+    } 
 }
 
 extension RetryCollectionViewCell {
